@@ -1,0 +1,39 @@
+---
+import { navItems } from '../../data/nav';
+---
+
+<div class="md:hidden">
+	<button
+		id="mobile-nav-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="mobile-nav-menu"
+	>
+		Menu
+	</button>
+
+	<nav id="mobile-nav-menu" class="hidden flex-col gap-sm" aria-label="Navegação mobile">
+		<ul class="flex flex-col gap-sm">
+			{
+				navItems.map((item) => (
+					<li>
+						<a href={item.href} class="hover:text-primary">
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<a href="#" class="btn btn-primary">Agendar pelo WhatsApp</a>
+	</nav>
+</div>
+
+<script>
+	const toggle = document.getElementById('mobile-nav-toggle');
+	const menu = document.getElementById('mobile-nav-menu');
+
+	toggle?.addEventListener('click', () => {
+		const isHidden = menu?.classList.toggle('hidden');
+		toggle.setAttribute('aria-expanded', String(!isHidden));
+	});
+</script>

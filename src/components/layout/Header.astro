@@ -1,0 +1,16 @@
+---
+import Logo from './Logo.astro';
+import Nav from './Nav.astro';
+import MobileNav from './MobileNav.astro';
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
+	<div class="site-container grid h-[78px] grid-cols-[1fr_auto_1fr] items-center gap-md">
+		<Logo />
+		<Nav />
+		<div class="flex items-center justify-end gap-sm">
+			<a href="#" class="btn btn-primary hidden md:inline-flex">Agendar pelo WhatsApp</a>
+			<MobileNav />
+		</div>
+	</div>
+</header>
