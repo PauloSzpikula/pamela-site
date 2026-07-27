@@ -4,7 +4,10 @@ import Nav from './Nav.astro';
 import MobileNav from './MobileNav.astro';
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
+<header
+	id="site-header"
+	class="group fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 [&.is-scrolled]:border-border [&.is-scrolled]:bg-background"
+>
 	<div class="site-container grid h-[78px] grid-cols-[1fr_auto_1fr] items-center gap-md">
 		<Logo />
 		<Nav />
@@ -14,3 +17,14 @@ import MobileNav from './MobileNav.astro';
 		</div>
 	</div>
 </header>
+
+<script>
+	const header = document.getElementById('site-header');
+
+	const updateHeaderState = () => {
+		header?.classList.toggle('is-scrolled', window.scrollY > 0);
+	};
+
+	updateHeaderState();
+	window.addEventListener('scroll', updateHeaderState, { passive: true });
+</script>

@@ -12,9 +12,15 @@
 	--color-text-light: #6b655f;
 	--color-primary: #8a6d2e;
 	--color-primary-hover: #725a26;
+	--color-primary-light: #e3c47f;
 	--color-border: #e7e3dc;
 
-	/* Escala de espaçamento — únicos valores usados para padding/gap/margin */
+	/* Escala de espaçamento — únicos valores usados para padding/gap/margin/translate.
+	   ATENÇÃO: o Tailwind v4 usa esses MESMOS nomes (xs/sm/md/lg/xl/2xl) como fallback
+	   para escalas de tamanho nomeadas (max-w-*, w-*, h-*, min-w-*, min-h-*, size-*).
+	   Definir --spacing-xl aqui faz "max-w-xl" virar 3rem em vez do padrão do Tailwind (36rem)!
+	   Nunca use max-w-{xs,sm,md,lg,xl,2xl} / w-{...} / min-w-{...} / size-{...} no projeto —
+	   use valores arbitrários (ex: max-w-[36rem]) para esses casos. */
 	--spacing-xs: 0.75rem;
 	--spacing-sm: 1rem;
 	--spacing-md: 1.25rem;

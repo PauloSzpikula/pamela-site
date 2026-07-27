@@ -7,7 +7,10 @@ import { navItems } from '../../data/nav';
 		{
 			navItems.map((item) => (
 				<li>
-					<a href={item.href} class="hover:text-primary">
+					<a
+						href={item.href}
+						class="text-background transition-colors duration-300 hover:text-primary group-[.is-scrolled]:text-text"
+					>
 						{item.label}
 					</a>
 				</li>

@@ -1,0 +1,39 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { portfolioCategories } from '../../data/portfolio';
+
+const categories = portfolioCategories.map((category) => ({
+	...category,
+	hasImage: fs.existsSync(path.join(process.cwd(), 'public', category.image)),
+}));
+---
+
+<section id="portfolio" class="border-t border-border">
+	<div class="site-container flex flex-col gap-2xl py-2xl">
+		<div class="flex flex-col gap-sm">
+			<small>Portfólio</small>
+			<h2>Um ensaio para cada momento da sua família</h2>
+		</div>
+
+		<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
+			{
+				categories.map((category) => (
+					<a href="#" class="group flex flex-col gap-sm">
+						<div class="aspect-[4/5] overflow-hidden border border-border bg-surface transition-colors group-hover:border-primary">
+							{category.hasImage && (
+								<img
+									src={category.image}
+									alt={category.label}
+									loading="lazy"
+									class="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+								/>
+							)}
+						</div>
+						<small>{category.label}</small>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>

@@ -2,17 +2,22 @@
 import { navItems } from '../../data/nav';
 ---
 
-<div class="md:hidden">
+<div class="relative md:hidden">
 	<button
 		id="mobile-nav-toggle"
 		type="button"
 		aria-expanded="false"
 		aria-controls="mobile-nav-menu"
+		class="text-background transition-colors duration-300 group-[.is-scrolled]:text-text"
 	>
 		Menu
 	</button>
 
-	<nav id="mobile-nav-menu" class="hidden flex-col gap-sm" aria-label="Navegação mobile">
+	<nav
+		id="mobile-nav-menu"
+		class="absolute right-0 top-full hidden w-56 flex flex-col gap-sm border border-border bg-background p-md shadow-sm"
+		aria-label="Navegação mobile"
+	>
 		<ul class="flex flex-col gap-sm">
 			{
 				navItems.map((item) => (
