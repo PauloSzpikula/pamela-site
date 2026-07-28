@@ -1,5 +1,6 @@
 ---
 import { navItems } from '../../data/nav';
+import { whatsappHref } from '../../data/contact';
 ---
 
 <div class="relative md:hidden">
@@ -8,28 +9,35 @@ import { navItems } from '../../data/nav';
 		type="button"
 		aria-expanded="false"
 		aria-controls="mobile-nav-menu"
-		class="text-background transition-colors duration-300 group-[.is-scrolled]:text-text"
+		class="text-bg transition-colors duration-300 group-[.is-scrolled]:text-text"
 	>
 		Menu
 	</button>
 
 	<nav
 		id="mobile-nav-menu"
-		class="absolute right-0 top-full hidden w-56 flex flex-col gap-sm border border-border bg-background p-md shadow-sm"
+		class="absolute right-0 top-full hidden w-56 flex flex-col gap-sm border border-border bg-bg p-md shadow-sm"
 		aria-label="Navegação mobile"
 	>
 		<ul class="flex flex-col gap-sm">
 			{
 				navItems.map((item) => (
 					<li>
-						<a href={item.href} class="hover:text-primary">
+						<a href={item.href} class="hover:text-gold">
 							{item.label}
 						</a>
 					</li>
 				))
 			}
 		</ul>
-		<a href="#" class="btn btn-primary">Agendar pelo WhatsApp</a>
+		<a
+			href={whatsappHref}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="btn btn-primary"
+		>
+			Agendar pelo WhatsApp
+		</a>
 	</nav>
 </div>
 

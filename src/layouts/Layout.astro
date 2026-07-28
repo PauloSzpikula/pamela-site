@@ -1,29 +1,83 @@
 ---
 import '../styles/global.css';
 import Header from '../components/layout/Header.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Pamela Teice Fotografia | Fotógrafa em São José dos Pinhais e Curitiba',
+	description = 'Ensaios de gestante, newborn, infantil, família, escolar e casamento com Pamela Teice, fotógrafa em São José dos Pinhais, Curitiba e Região Metropolitana.',
+} = Astro.props;
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'Photographer',
+	name: 'Pamela Teice Fotografia',
+	description,
+	url: Astro.site?.toString() ?? Astro.url.origin,
+	image: `${Astro.url.origin}/images/hero/hero-home.webp`,
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: 'Rua Professor Thales de Souza e Silva',
+		addressLocality: 'São José dos Pinhais',
+		addressRegion: 'PR',
+		addressCountry: 'BR',
+	},
+	areaServed: ['São José dos Pinhais', 'Curitiba', 'Região Metropolitana de Curitiba'],
+	sameAs: ['https://www.instagram.com/pamelateicefotografia'],
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-			rel="stylesheet"
-		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:locale" content="pt_BR" />
+
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
 		<Header />
 		<slot />
 	</body>
 </html>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const revealTargets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+	if (!prefersReducedMotion && revealTargets.length) {
+		const observer = new IntersectionObserver(
+			(entries, obs) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						obs.unobserve(entry.target);
+					}
+				}
+			},
+			{ threshold: 0.15 }
+		);
+
+		revealTargets.forEach((target) => observer.observe(target));
+	} else {
+		revealTargets.forEach((target) => target.classList.add('is-visible'));
+	}
+</script>
 
 <style>
 	html,

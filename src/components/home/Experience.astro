@@ -24,9 +24,9 @@ const steps = [
 ---
 
 <section class="border-t border-border">
-	<div class="site-container flex flex-col gap-2xl py-2xl">
+	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
 		<div class="flex flex-col gap-sm">
-			<small class="font-semibold uppercase tracking-[0.2em] text-primary">A Experiência</small>
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">A Experiência</small>
 
 			<h2 class="max-w-[42rem]">
 				Cada ensaio é pensado para que você viva o momento, enquanto eu cuido de transformá-lo em
@@ -37,8 +37,9 @@ const steps = [
 		<div class="grid grid-cols-1 gap-2xl md:grid-cols-4 md:gap-lg">
 			{
 				steps.map((step) => (
-					<div class="group flex flex-col gap-md border-t border-border pt-lg transition-colors duration-300 hover:border-primary">
-						<span class="font-heading text-4xl text-text-light transition-colors duration-300 group-hover:text-primary">
+					<div class="group relative flex flex-col gap-md border-l-2 border-border pl-lg transition-colors duration-300 hover:border-gold md:border-l-0 md:border-t-2 md:pl-0 md:pt-lg">
+						<span class="absolute -left-[5px] top-0 h-2 w-2 rounded-full bg-border transition-colors duration-300 group-hover:bg-gold md:-top-[5px] md:left-0" />
+						<span class="font-heading text-4xl font-light text-text-muted transition-colors duration-300 group-hover:text-gold">
 							{step.number}
 						</span>
 						<h3>{step.title}</h3>

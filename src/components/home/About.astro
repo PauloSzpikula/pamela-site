@@ -6,17 +6,23 @@ const photo = '/images/sobre/pamela.webp';
 const hasPhoto = fs.existsSync(path.join(process.cwd(), 'public', photo));
 ---
 
-<section class="border-t border-border">
-	<div class="site-container grid grid-cols-1 gap-2xl py-2xl md:grid-cols-[2fr_3fr]">
-		<div class="aspect-[4/5] overflow-hidden bg-surface md:aspect-auto md:h-full">
+<section id="sobre" class="scroll-mt-20 border-t border-border">
+	<div
+		data-reveal
+		class="site-container grid grid-cols-1 gap-2xl py-12 md:grid-cols-[2fr_3fr] md:py-24"
+	>
+		<div
+			class="aspect-[4/5] overflow-hidden bg-surface shadow-[0_25px_60px_-20px_rgba(42,36,32,0.25)] md:aspect-auto md:h-full"
+		>
 			{hasPhoto && <img src={photo} alt="Pamela Teice" class="h-full w-full object-cover" />}
 		</div>
 
 		<div class="flex flex-col justify-center gap-lg">
-			<div class="flex flex-col gap-sm">
-				<small class="font-semibold uppercase tracking-[0.2em] text-primary">Sobre</small>
-				<h2 class="max-w-[26rem]">Fotografar é preservar aquilo que o tempo não volta.</h2>
-			</div>
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">Sobre</small>
+
+			<h2 class="max-w-[26rem] font-heading text-3xl italic text-text md:text-4xl">
+				Fotografar é preservar aquilo que o tempo não volta.
+			</h2>
 
 			<div class="flex flex-col gap-md">
 				<p>
@@ -33,7 +39,7 @@ const hasPhoto = fs.existsSync(path.join(process.cwd(), 'public', photo));
 				</p>
 			</div>
 
-			<a href="#" class="btn btn-secondary self-start">Conheça meu trabalho</a>
+			<a href="#portfolio" class="btn btn-secondary self-start">Conheça meu trabalho</a>
 		</div>
 	</div>
 </section>

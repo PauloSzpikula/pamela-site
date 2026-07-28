@@ -50,9 +50,9 @@ const items = testimonials.map((testimonial) => ({
 ---
 
 <section class="border-t border-border">
-	<div class="site-container flex flex-col gap-2xl py-2xl">
+	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
 		<div class="flex flex-col gap-sm">
-			<small class="font-semibold uppercase tracking-[0.2em] text-primary">Depoimentos</small>
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">Depoimentos</small>
 			<h2 class="max-w-[36rem]">Histórias que continuam emocionando muito depois do ensaio.</h2>
 		</div>
 
@@ -63,28 +63,24 @@ const items = testimonials.map((testimonial) => ({
 			>
 				{
 					items.map((item) => (
-						<div class="flex w-[85%] shrink-0 snap-start flex-col gap-md border border-border p-lg transition-colors duration-300 hover:border-primary sm:w-[46%] lg:w-[31%]">
-							<span role="img" aria-label="Avaliação 5 de 5 estrelas" class="text-primary">
-								★★★★★
+						<div class="flex w-[85%] shrink-0 snap-start flex-col gap-md border border-border p-lg transition-colors duration-300 hover:border-gold sm:w-[46%] lg:w-[31%]">
+							<span aria-hidden="true" class="font-heading text-5xl leading-none text-gold">
+								“
 							</span>
 
-							<p>“{item.quote}”</p>
+							<p class="font-heading text-lg italic text-text">{item.quote}</p>
 
 							<div class="mt-auto flex items-center gap-sm pt-md">
-								<div class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-surface">
-									{item.hasAvatar ? (
+								{item.hasAvatar && (
+									<div class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-surface">
 										<img
 											src={item.avatar}
 											alt={item.author}
 											loading="lazy"
 											class="h-full w-full object-cover"
 										/>
-									) : (
-										<div class="flex h-full w-full items-center justify-center font-semibold text-text-light">
-											{item.author.charAt(0)}
-										</div>
-									)}
-								</div>
+									</div>
+								)}
 
 								<div class="flex flex-col">
 									<span class="font-semibold text-text">{item.author}</span>
@@ -103,7 +99,7 @@ const items = testimonials.map((testimonial) => ({
 					id="testimonials-prev"
 					type="button"
 					aria-label="Depoimento anterior"
-					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-primary hover:text-primary"
+					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-gold hover:text-gold"
 				>
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
 						<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -113,7 +109,7 @@ const items = testimonials.map((testimonial) => ({
 					id="testimonials-next"
 					type="button"
 					aria-label="Próximo depoimento"
-					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-primary hover:text-primary"
+					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-gold hover:text-gold"
 				>
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
 						<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
