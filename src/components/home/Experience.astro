@@ -1,0 +1,51 @@
+---
+const steps = [
+	{
+		number: '01',
+		title: 'Conversamos',
+		description: 'Entendo sua história, expectativas e estilo.',
+	},
+	{
+		number: '02',
+		title: 'Planejamos',
+		description: 'Escolhemos cenário, roupas, horários e todos os detalhes.',
+	},
+	{
+		number: '03',
+		title: 'Vivemos o momento',
+		description: 'O ensaio acontece de forma leve, natural e sem poses forçadas.',
+	},
+	{
+		number: '04',
+		title: 'Memórias para sempre',
+		description: 'Você recebe fotografias tratadas com cuidado para guardar por toda a vida.',
+	},
+];
+---
+
+<section class="border-t border-border">
+	<div class="site-container flex flex-col gap-2xl py-2xl">
+		<div class="flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.2em] text-primary">A Experiência</small>
+
+			<h2 class="max-w-[42rem]">
+				Cada ensaio é pensado para que você viva o momento, enquanto eu cuido de transformá-lo em
+				memória.
+			</h2>
+		</div>
+
+		<div class="grid grid-cols-1 gap-2xl md:grid-cols-4 md:gap-lg">
+			{
+				steps.map((step) => (
+					<div class="group flex flex-col gap-md border-t border-border pt-lg transition-colors duration-300 hover:border-primary">
+						<span class="font-heading text-4xl text-text-light transition-colors duration-300 group-hover:text-primary">
+							{step.number}
+						</span>
+						<h3>{step.title}</h3>
+						<p>{step.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

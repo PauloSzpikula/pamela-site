@@ -1,0 +1,82 @@
+---
+import Logo from '../layout/Logo.astro';
+import { navItems } from '../../data/nav';
+import { portfolioCategories } from '../../data/portfolio';
+---
+
+<footer class="border-t border-border bg-background">
+	<div class="site-container flex flex-col gap-2xl py-2xl">
+		<div class="grid grid-cols-1 gap-2xl md:grid-cols-4 md:gap-lg">
+			<div class="flex flex-col gap-md">
+				<Logo dark />
+				<p class="max-w-[20rem] text-text-light">
+					Fotografias que preservam momentos únicos com sensibilidade e delicadeza.
+				</p>
+			</div>
+
+			<div class="flex flex-col gap-md">
+				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Navegação</h3>
+				<ul class="flex flex-col gap-sm">
+					{
+						navItems.map((item) => (
+							<li>
+								<a
+									href={item.href}
+									class="text-text-light transition-colors duration-300 hover:text-primary"
+								>
+									{item.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="flex flex-col gap-md">
+				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Ensaios</h3>
+				<ul class="flex flex-col gap-sm">
+					{
+						portfolioCategories.map((category) => (
+							<li>
+								<a
+									href="#"
+									class="text-text-light transition-colors duration-300 hover:text-primary"
+								>
+									{category.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="flex flex-col gap-md">
+				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Atendimento</h3>
+				<ul class="flex flex-col gap-sm text-text-light">
+					<li>São José dos Pinhais</li>
+					<li>Curitiba</li>
+					<li>Região Metropolitana</li>
+					<li>
+						<a href="#" class="transition-colors duration-300 hover:text-primary">
+							WhatsApp
+						</a>
+					</li>
+					<li>
+						<a href="#" class="transition-colors duration-300 hover:text-primary">
+							Instagram
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="border-t border-border" aria-hidden="true"></div>
+
+		<div
+			class="flex flex-col items-center gap-sm text-center text-text-light md:flex-row md:items-center md:justify-between md:text-left"
+		>
+			<small>© 2026 Pamela Teice Fotografia. Todos os direitos reservados.</small>
+			<small>Feito com carinho para preservar histórias.</small>
+		</div>
+	</div>
+</footer>

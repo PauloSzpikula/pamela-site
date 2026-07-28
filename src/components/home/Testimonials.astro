@@ -1,0 +1,139 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+const testimonials = [
+	{
+		quote:
+			'Foi muito mais do que um ensaio. Vivemos uma experiência leve e emocionante, e o resultado ficou acima de qualquer expectativa.',
+		author: 'Ana',
+		context: 'Ensaio Gestante',
+		date: 'há 2 meses',
+		avatar: '/images/depoimentos/ana.jpg',
+	},
+	{
+		quote:
+			'Me senti à vontade do início ao fim. As fotos capturaram exatamente o que a gente sentia naquele momento.',
+		author: 'Camila',
+		context: 'Ensaio de Família',
+		date: 'há 3 meses',
+		avatar: '/images/depoimentos/camila.jpg',
+	},
+	{
+		quote: 'Um cuidado com os detalhes que a gente sente em cada fotografia. Recomendo de olhos fechados.',
+		author: 'Juliana',
+		context: 'Ensaio Newborn',
+		date: 'há 4 meses',
+		avatar: '/images/depoimentos/juliana.jpg',
+	},
+	{
+		quote:
+			'Nunca me senti tão à vontade na frente de uma câmera. O resultado ficou lindo e muito verdadeiro.',
+		author: 'Beatriz',
+		context: 'Ensaio Casamento',
+		date: 'há 5 meses',
+		avatar: '/images/depoimentos/beatriz.jpg',
+	},
+	{
+		quote: 'Profissionalismo do início ao fim, e um olhar sensível para os detalhes que mais importam.',
+		author: 'Mariana',
+		context: 'Ensaio Infantil',
+		date: 'há 6 meses',
+		avatar: '/images/depoimentos/mariana.jpg',
+	},
+];
+
+const items = testimonials.map((testimonial) => ({
+	...testimonial,
+	hasAvatar: fs.existsSync(path.join(process.cwd(), 'public', testimonial.avatar)),
+}));
+---
+
+<section class="border-t border-border">
+	<div class="site-container flex flex-col gap-2xl py-2xl">
+		<div class="flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.2em] text-primary">Depoimentos</small>
+			<h2 class="max-w-[36rem]">Histórias que continuam emocionando muito depois do ensaio.</h2>
+		</div>
+
+		<div class="relative">
+			<div
+				id="testimonials-track"
+				class="flex snap-x snap-mandatory gap-lg overflow-x-auto scroll-smooth pb-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			>
+				{
+					items.map((item) => (
+						<div class="flex w-[85%] shrink-0 snap-start flex-col gap-md border border-border p-lg transition-colors duration-300 hover:border-primary sm:w-[46%] lg:w-[31%]">
+							<span role="img" aria-label="Avaliação 5 de 5 estrelas" class="text-primary">
+								★★★★★
+							</span>
+
+							<p>“{item.quote}”</p>
+
+							<div class="mt-auto flex items-center gap-sm pt-md">
+								<div class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-surface">
+									{item.hasAvatar ? (
+										<img
+											src={item.avatar}
+											alt={item.author}
+											loading="lazy"
+											class="h-full w-full object-cover"
+										/>
+									) : (
+										<div class="flex h-full w-full items-center justify-center font-semibold text-text-light">
+											{item.author.charAt(0)}
+										</div>
+									)}
+								</div>
+
+								<div class="flex flex-col">
+									<span class="font-semibold text-text">{item.author}</span>
+									<small>
+										{item.context} · {item.date}
+									</small>
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+
+			<div class="mt-lg flex justify-end gap-sm">
+				<button
+					id="testimonials-prev"
+					type="button"
+					aria-label="Depoimento anterior"
+					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-primary hover:text-primary"
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+						<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</button>
+				<button
+					id="testimonials-next"
+					type="button"
+					aria-label="Próximo depoimento"
+					class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-primary hover:text-primary"
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+						<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const track = document.getElementById('testimonials-track');
+	const prev = document.getElementById('testimonials-prev');
+	const next = document.getElementById('testimonials-next');
+
+	const scrollByCard = (direction: number) => {
+		if (!track) return;
+		track.scrollBy({ left: direction * track.clientWidth * 0.85, behavior: 'smooth' });
+	};
+
+	prev?.addEventListener('click', () => scrollByCard(-1));
+	next?.addEventListener('click', () => scrollByCard(1));
+</script>

@@ -1,4 +1,10 @@
 ---
+interface Props {
+	/** Usa a arte preta original, sem inverter para branco — para uso fora do Header, sobre fundo claro. */
+	dark?: boolean;
+}
+
+const { dark = false } = Astro.props;
 ---
 
 <a href="/" aria-label="Pamela Teice Fotografia" class="relative block aspect-[1010/209] h-[65px]">
@@ -7,6 +13,9 @@
 		alt=""
 		width="1010"
 		height="209"
-		class="h-full w-full object-contain brightness-0 invert transition-[filter] duration-300 group-[.is-scrolled]:invert-0"
+		class:list={[
+			'h-full w-full object-contain transition-[filter] duration-300',
+			!dark && 'brightness-0 invert group-[.is-scrolled]:invert-0',
+		]}
 	/>
 </a>
