@@ -1,0 +1,46 @@
+---
+interface Step {
+	number: string;
+	title: string;
+	description: string;
+}
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	steps: Step[];
+}
+
+const { eyebrow, title, steps } = Astro.props;
+---
+
+<section class="border-t border-border">
+	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
+		<div class="flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">{eyebrow}</small>
+			<h2 class="max-w-[42rem]">{title}</h2>
+		</div>
+
+		<div class="grid grid-cols-1 gap-2xl md:grid-cols-4 md:gap-lg">
+			{
+				steps.map((step, index) => (
+					<div
+						class:list={[
+							'group relative flex flex-col gap-lg border-l-2 border-border pl-lg transition-colors duration-300 hover:border-gold md:border-l-0 md:border-t-2 md:pl-0 md:pt-lg',
+							index % 2 === 1 && 'md:mt-xl',
+						]}
+					>
+						<span class="absolute -left-[5px] top-0 h-2 w-2 rounded-full bg-border transition-colors duration-300 group-hover:bg-gold md:-top-[5px] md:left-0" />
+						<span class="font-heading text-6xl font-light leading-none text-gold/35 transition-colors duration-500 group-hover:text-gold md:text-7xl">
+							{step.number}
+						</span>
+						<div class="flex flex-col gap-xs">
+							<h3>{step.title}</h3>
+							<p>{step.description}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

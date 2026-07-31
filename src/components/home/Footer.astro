@@ -40,7 +40,7 @@ import { whatsappHref, instagramHref } from '../../data/contact';
 						portfolioCategories.map((category) => (
 							<li>
 								<a
-									href="#portfolio"
+									href={`/${category.slug}`}
 									class="text-text-muted transition-colors duration-300 hover:text-gold"
 								>
 									{category.label}

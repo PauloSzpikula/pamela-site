@@ -18,21 +18,17 @@ const categories = portfolioCategories.map((category) => ({
 
 		<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
 			{
-				categories.map((category, index) => (
-					<button
-						type="button"
-						aria-label={category.label}
-						class="portfolio-item group relative flex aspect-[4/5] flex-col overflow-hidden border border-border bg-surface text-left transition-colors duration-300 hover:border-gold md:cursor-none"
-						data-index={index}
-						data-src={category.hasImage ? category.image : ''}
-						data-label={category.label}
+				categories.map((category) => (
+					<a
+						href={`/${category.slug}`}
+						class="portfolio-card group relative flex aspect-[4/5] flex-col overflow-hidden border border-border bg-surface transition-colors duration-300 hover:border-gold"
 					>
 						{category.hasImage && (
 							<img
 								src={category.image}
-								alt=""
+								alt={category.label}
 								loading="lazy"
-								class="h-full w-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
+								class="aspect-[4/5] w-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
 							/>
 						)}
 						<span
@@ -41,141 +37,15 @@ const categories = portfolioCategories.map((category) => ({
 						>
 							<span class="font-semibold uppercase tracking-wide text-bg">{category.label}</span>
 						</span>
-					</button>
+						<span
+							aria-hidden="true"
+							class="ver-mais pointer-events-none absolute bottom-[16px] right-[16px] text-xs font-semibold uppercase tracking-wide text-bg opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:duration-200"
+						>
+							Ver mais
+						</span>
+					</a>
 				))
 			}
 		</div>
 	</div>
-
-	<div
-		id="portfolio-lightbox"
-		class="fixed inset-0 z-[60] hidden items-center justify-center bg-text/90 opacity-0 transition-opacity duration-300"
-		role="dialog"
-		aria-modal="true"
-		aria-label="Visualização ampliada do ensaio"
-	>
-		<button
-			type="button"
-			data-lightbox-close
-			aria-label="Fechar"
-			class="absolute right-lg top-lg flex h-10 w-10 items-center justify-center text-bg transition-colors duration-300 hover:text-gold"
-		>
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
-				<path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
-			</svg>
-		</button>
-
-		<button
-			type="button"
-			data-lightbox-prev
-			aria-label="Ensaio anterior"
-			class="absolute left-sm top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-bg transition-colors duration-300 hover:text-gold md:left-lg"
-		>
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
-				<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
-			</svg>
-		</button>
-
-		<img id="portfolio-lightbox-img" src="" alt="" class="max-h-[80vh] max-w-[85vw] object-contain" />
-
-		<button
-			type="button"
-			data-lightbox-next
-			aria-label="Próximo ensaio"
-			class="absolute right-sm top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-bg transition-colors duration-300 hover:text-gold md:right-lg"
-		>
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
-				<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
-			</svg>
-		</button>
-
-		<span
-			id="portfolio-lightbox-label"
-			class="absolute bottom-lg left-1/2 -translate-x-1/2 font-semibold uppercase tracking-wide text-bg"
-		/>
-	</div>
-
-	<span
-		id="portfolio-cursor"
-		aria-hidden="true"
-		class="pointer-events-none fixed left-0 top-0 z-50 hidden -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bg px-md py-xs text-sm font-semibold uppercase tracking-wide text-text opacity-0 shadow-lg transition-opacity duration-200 md:flex"
-	>
-		Ver mais
-	</span>
 </section>
-
-<script>
-	const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.portfolio-item'));
-	const lightbox = document.getElementById('portfolio-lightbox');
-	const lightboxImg = document.getElementById('portfolio-lightbox-img') as HTMLImageElement | null;
-	const lightboxLabel = document.getElementById('portfolio-lightbox-label');
-	const cursor = document.getElementById('portfolio-cursor');
-
-	let currentIndex = 0;
-
-	const openLightbox = (index: number) => {
-		const item = items[index];
-		const src = item?.dataset.src;
-		if (!item || !src || !lightbox || !lightboxImg || !lightboxLabel) return;
-
-		currentIndex = index;
-		lightboxImg.src = src;
-		lightboxImg.alt = item.dataset.label ?? '';
-		lightboxLabel.textContent = item.dataset.label ?? '';
-		lightbox.classList.remove('hidden');
-		lightbox.classList.add('flex');
-		requestAnimationFrame(() => lightbox.classList.remove('opacity-0'));
-		document.body.style.overflow = 'hidden';
-	};
-
-	const closeLightbox = () => {
-		if (!lightbox) return;
-		lightbox.classList.add('opacity-0');
-		document.body.style.overflow = '';
-		window.setTimeout(() => {
-			lightbox.classList.add('hidden');
-			lightbox.classList.remove('flex');
-		}, 300);
-	};
-
-	const showRelative = (direction: number) => {
-		const withImage = items.filter((item) => item.dataset.src);
-		if (!withImage.length) return;
-		const order = withImage.map((item) => Number(item.dataset.index));
-		const pos = order.indexOf(currentIndex);
-		const nextPos = (pos + direction + order.length) % order.length;
-		openLightbox(order[nextPos]);
-	};
-
-	items.forEach((item) => {
-		item.addEventListener('click', () => {
-			if (item.dataset.src) openLightbox(Number(item.dataset.index));
-		});
-
-		item.addEventListener('mousemove', (event) => {
-			if (!cursor) return;
-			cursor.style.left = `${event.clientX}px`;
-			cursor.style.top = `${event.clientY}px`;
-			cursor.classList.remove('opacity-0');
-		});
-
-		item.addEventListener('mouseleave', () => {
-			cursor?.classList.add('opacity-0');
-		});
-	});
-
-	document.querySelector('[data-lightbox-close]')?.addEventListener('click', closeLightbox);
-	document.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => showRelative(-1));
-	document.querySelector('[data-lightbox-next]')?.addEventListener('click', () => showRelative(1));
-
-	lightbox?.addEventListener('click', (event) => {
-		if (event.target === lightbox) closeLightbox();
-	});
-
-	document.addEventListener('keydown', (event) => {
-		if (lightbox?.classList.contains('hidden')) return;
-		if (event.key === 'Escape') closeLightbox();
-		if (event.key === 'ArrowLeft') showRelative(-1);
-		if (event.key === 'ArrowRight') showRelative(1);
-	});
-</script>

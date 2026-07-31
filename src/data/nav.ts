@@ -4,8 +4,8 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-	{ label: 'Home', href: '#' },
-	{ label: 'Sobre', href: '#sobre' },
-	{ label: 'Portfólio', href: '#portfolio' },
-	{ label: 'Contato', href: '#contato' },
+	{ label: 'Home', href: '/' },
+	{ label: 'Sobre', href: '/#sobre' },
+	{ label: 'Portfólio', href: '/#portfolio' },
+	{ label: 'Contato', href: '/#contato' },
 ];

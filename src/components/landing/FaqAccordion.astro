@@ -1,0 +1,46 @@
+---
+interface FaqItem {
+	question: string;
+	answer: string;
+}
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	items: FaqItem[];
+}
+
+const { eyebrow, title, items } = Astro.props;
+---
+
+<section class="border-t border-border">
+	<div data-reveal class="site-container grid grid-cols-1 gap-lg py-12 md:grid-cols-[2fr_3fr] md:gap-2xl md:py-24">
+		<div class="flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">{eyebrow}</small>
+			<h2 class="max-w-[24rem]">{title}</h2>
+		</div>
+
+		<div class="flex flex-col">
+			{
+				items.map((item) => (
+					<details class="group border-b border-border first:border-t">
+						<summary class="flex list-none items-center justify-between gap-lg py-lg [&::-webkit-details-marker]:hidden">
+							<h3 class="cursor-pointer text-base font-medium text-text md:text-lg">{item.question}</h3>
+							<svg
+								viewBox="0 0 20 20"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								class="h-4 w-4 shrink-0 text-text-muted transition-transform duration-300 group-open:rotate-45 group-open:text-gold"
+								aria-hidden="true"
+							>
+								<path d="M10 3v14M3 10h14" stroke-linecap="round" />
+							</svg>
+						</summary>
+						<p class="max-w-[34rem] pb-lg pr-xl text-text-muted">{item.answer}</p>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>

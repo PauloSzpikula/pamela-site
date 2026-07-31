@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/home/Footer.astro';
+import LandingHero from '../components/landing/LandingHero.astro';
+import EditorialIntro from '../components/landing/EditorialIntro.astro';
+import ProcessSteps from '../components/landing/ProcessSteps.astro';
+import EditorialGallery from '../components/landing/EditorialGallery.astro';
+import FeaturedTestimonial from '../components/landing/FeaturedTestimonial.astro';
+import FaqAccordion from '../components/landing/FaqAccordion.astro';
+import LandingCta from '../components/landing/LandingCta.astro';
+import { hero, intro, process, gallery, testimonial, faq, cta } from '../data/gestante';
+
+const title = 'Ensaio Gestante em São José dos Pinhais e Curitiba | Pamela Teice Fotografia';
+const description =
+	'Ensaios gestantes sensíveis e premium em São José dos Pinhais, Curitiba e Região Metropolitana. Fotografias que eternizam a espera com leveza e emoção.';
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faq.items.map((item) => ({
+		'@type': 'Question',
+		name: item.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.answer,
+		},
+	})),
+};
+---
+
+<Layout title={title} description={description}>
+	<LandingHero
+		eyebrow={hero.eyebrow}
+		title={hero.title}
+		description={hero.description}
+		image={hero.image}
+		imageAlt={hero.imageAlt}
+		primaryLabel="Agendar Ensaio"
+		primaryHref={cta.primaryHref}
+		secondaryLabel="Ver Portfólio"
+		secondaryHref="#galeria"
+	/>
+	<EditorialIntro
+		eyebrow={intro.eyebrow}
+		title={intro.title}
+		paragraphs={intro.paragraphs}
+		image={intro.image}
+		imageAlt={intro.imageAlt}
+	/>
+	<ProcessSteps eyebrow={process.eyebrow} title={process.title} steps={process.steps} />
+	<EditorialGallery
+		eyebrow={gallery.eyebrow}
+		title={gallery.title}
+		description={gallery.description}
+		items={gallery.items}
+	/>
+	<FeaturedTestimonial
+		eyebrow={testimonial.eyebrow}
+		quote={testimonial.quote}
+		author={testimonial.author}
+		context={testimonial.context}
+		image={testimonial.image}
+		imageAlt={testimonial.imageAlt}
+	/>
+	<FaqAccordion eyebrow={faq.eyebrow} title={faq.title} items={faq.items} />
+	<LandingCta
+		eyebrow={cta.eyebrow}
+		title={cta.title}
+		description={cta.description}
+		primaryLabel={cta.primaryLabel}
+		primaryHref={cta.primaryHref}
+		secondaryLabel={cta.secondaryLabel}
+		secondaryHref={cta.secondaryHref}
+	/>
+	<Footer />
+
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>
