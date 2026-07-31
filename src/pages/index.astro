@@ -4,17 +4,23 @@ import Hero from '../components/home/Hero.astro';
 import About from '../components/home/About.astro';
 import Experience from '../components/home/Experience.astro';
 import Portfolio from '../components/home/Portfolio.astro';
-import Testimonials from '../components/home/Testimonials.astro';
+import ReviewSection from '../components/reviews/ReviewSection.astro';
 import CtaFinal from '../components/home/CtaFinal.astro';
 import Footer from '../components/home/Footer.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { organizationSchema, localBusinessSchema, photographerSchema } from '../config/schema';
+
+const schema = [organizationSchema(), localBusinessSchema(), photographerSchema()];
 ---
 
-<Layout>
+<Layout preloadImage="/images/hero/hero-home.webp">
 	<Hero />
 	<About />
 	<Experience />
 	<Portfolio />
-	<Testimonials />
+	<ReviewSection />
 	<CtaFinal />
 	<Footer />
+
+	<JsonLd schema={schema} />
 </Layout>

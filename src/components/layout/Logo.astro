@@ -2,17 +2,19 @@
 interface Props {
 	/** Usa a arte preta original, sem inverter para branco — para uso fora do Header, sobre fundo claro. */
 	dark?: boolean;
+	loading?: 'eager' | 'lazy';
 }
 
-const { dark = false } = Astro.props;
+const { dark = false, loading = 'eager' } = Astro.props;
 ---
 
-<a href="/" aria-label="Pamela Teice Fotografia" class="relative block aspect-[1010/209] h-[65px]">
+<a href="/" aria-label="Pamela Teice Fotografia" class="relative block aspect-[1365/309] h-11 md:h-[65px]">
 	<img
 		src="/images/logo/logo-preta.png"
 		alt=""
-		width="1010"
-		height="209"
+		width="1365"
+		height="309"
+		loading={loading}
 		class:list={[
 			'h-full w-full object-contain transition-[filter] duration-300',
 			!dark && 'brightness-0 invert group-[.is-scrolled]:invert-0',

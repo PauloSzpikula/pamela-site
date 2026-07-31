@@ -2,20 +2,21 @@
 import Logo from '../layout/Logo.astro';
 import { navItems } from '../../data/nav';
 import { portfolioCategories } from '../../data/portfolio';
-import { whatsappHref, instagramHref } from '../../data/contact';
+import { whatsappHref } from '../../config/contact';
+import { instagramHref } from '../../config/social';
 ---
 
 <footer class="border-t border-border bg-bg">
-	<div class="site-container flex flex-col gap-2xl py-12 md:py-24">
-		<div class="grid grid-cols-1 gap-2xl md:grid-cols-4 md:gap-lg">
-			<div class="flex flex-col gap-md">
-				<Logo dark />
+	<div class="site-container flex flex-col gap-lg py-8 md:py-12">
+		<div class="grid grid-cols-1 gap-lg md:grid-cols-4 md:gap-md">
+			<div class="flex flex-col gap-sm">
+				<Logo dark loading="lazy" />
 				<p class="max-w-[20rem] text-text-muted">
 					Fotografias que preservam momentos únicos com sensibilidade e delicadeza.
 				</p>
 			</div>
 
-			<div class="flex flex-col gap-md">
+			<div class="flex flex-col gap-sm">
 				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Navegação</h3>
 				<ul class="flex flex-col gap-sm">
 					{
@@ -33,7 +34,7 @@ import { whatsappHref, instagramHref } from '../../data/contact';
 				</ul>
 			</div>
 
-			<div class="flex flex-col gap-md">
+			<div class="flex flex-col gap-sm">
 				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Ensaios</h3>
 				<ul class="flex flex-col gap-sm">
 					{
@@ -51,13 +52,12 @@ import { whatsappHref, instagramHref } from '../../data/contact';
 				</ul>
 			</div>
 
-			<div class="flex flex-col gap-md">
+			<div class="flex flex-col gap-sm">
 				<h3 class="text-sm font-semibold uppercase tracking-wide text-text">Atendimento</h3>
 				<ul class="flex flex-col gap-sm text-text-muted">
 					<li>São José dos Pinhais</li>
-					<li>Curitiba</li>
-					<li>Região Metropolitana</li>
-					<li>
+					<li>Curitiba e Região Metropolitana</li>
+					<li class="pt-xs">
 						<a
 							href={whatsappHref}
 							target="_blank"

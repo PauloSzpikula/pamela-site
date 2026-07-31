@@ -1,0 +1,40 @@
+---
+interface Props {
+	/** Nota de 0 a 5. Suporta valores fracionários (ex: 4.6) com preenchimento parcial. */
+	rating: number;
+	size?: 'sm' | 'md';
+}
+
+const { rating, size = 'md' } = Astro.props;
+
+const percentage = Math.max(0, Math.min(100, (rating / 5) * 100));
+const sizeClass = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4';
+
+const starPath =
+	'M12 2.5l2.85 6.28 6.9.63-5.22 4.6 1.57 6.77L12 17.02l-6.1 3.76 1.57-6.77-5.22-4.6 6.9-.63L12 2.5z';
+---
+
+<span class="relative inline-flex" aria-label={`Avaliação ${rating} de 5 estrelas`}>
+	<span class="flex gap-[2px] text-border" aria-hidden="true">
+		{
+			Array.from({ length: 5 }).map(() => (
+				<svg viewBox="0 0 24 24" fill="currentColor" class={sizeClass}>
+					<path d={starPath} />
+				</svg>
+			))
+		}
+	</span>
+	<span
+		class="absolute inset-0 flex gap-[2px] overflow-hidden text-gold"
+		style={`width: ${percentage}%`}
+		aria-hidden="true"
+	>
+		{
+			Array.from({ length: 5 }).map(() => (
+				<svg viewBox="0 0 24 24" fill="currentColor" class={sizeClass}>
+					<path d={starPath} />
+				</svg>
+			))
+		}
+	</span>
+</span>

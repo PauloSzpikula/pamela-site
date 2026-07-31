@@ -2,14 +2,14 @@
 import Logo from './Logo.astro';
 import Nav from './Nav.astro';
 import MobileNav from './MobileNav.astro';
-import { whatsappHref } from '../../data/contact';
+import { whatsappHref } from '../../config/contact';
 ---
 
 <header
 	id="site-header"
 	class="group fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent transition-colors duration-300 [&.is-scrolled]:border-border [&.is-scrolled]:bg-bg"
 >
-	<div class="site-container grid h-[78px] grid-cols-[1fr_auto_1fr] items-center gap-md">
+	<div class="site-container grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-md md:h-[78px]">
 		<Logo />
 		<Nav />
 		<div class="flex items-center justify-end gap-sm">
@@ -17,7 +17,7 @@ import { whatsappHref } from '../../data/contact';
 				href={whatsappHref}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="btn btn-primary hidden md:inline-flex"
+				class="btn btn-primary hidden lg:inline-flex"
 			>
 				Agendar pelo WhatsApp
 			</a>

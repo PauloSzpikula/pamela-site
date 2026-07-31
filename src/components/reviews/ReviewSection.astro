@@ -1,0 +1,86 @@
+---
+import ReviewCarousel from './ReviewCarousel.astro';
+import Stars from './Stars.astro';
+import {
+	getFeaturedReviews,
+	getRating,
+	getTotalReviews,
+	getGoogleProfile,
+	formatRating,
+} from '../../services/ReviewService';
+import { reviewConfig } from '../../config/reviewConfig';
+
+/**
+ * Seção de avaliações pronta para uso, sem props: `<ReviewSection />`.
+ * Todos os dados vêm do ReviewService e o comportamento vem de
+ * `src/config/reviewConfig.ts` — para atualizar o conteúdo, edite
+ * `src/data/reviews/reviews.ts`; para mudar comportamento (quantidade,
+ * exibir resumo/botão, título), edite `reviewConfig.ts` ou passe a prop
+ * equivalente aqui. Nunca lógica nova no componente para isso.
+ */
+
+interface Props {
+	title?: string;
+	count?: number;
+	showSummary?: boolean;
+	showGoogleButton?: boolean;
+	googleButtonLabel?: string;
+}
+
+const {
+	title = reviewConfig.title,
+	count = reviewConfig.defaultCount,
+	showSummary = reviewConfig.showSummary,
+	showGoogleButton = reviewConfig.showGoogleButton,
+	googleButtonLabel = reviewConfig.googleButtonLabel,
+} = Astro.props;
+
+const reviews = getFeaturedReviews(count);
+const rating = getRating();
+const totalReviews = getTotalReviews();
+const googleProfileUrl = getGoogleProfile();
+
+// O resumo (estrelas + nota + total) vira um link discreto para o perfil do
+// Google quando o botão está habilitado e há um link — mesma condição do
+// botão abaixo do carrossel, sem parecer um botão (ver classes no elemento).
+const summaryHref = showGoogleButton && googleProfileUrl ? googleProfileUrl : undefined;
+const SummaryWrapper = summaryHref ? 'a' : 'div';
+---
+
+<section class="border-t border-border">
+	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
+		<div class="flex flex-col items-center gap-md text-center">
+			<h2>{title}</h2>
+
+			{
+				showSummary && (
+					<SummaryWrapper
+						href={summaryHref}
+						target={summaryHref ? '_blank' : undefined}
+						rel={summaryHref ? 'noopener noreferrer' : undefined}
+						class:list={[
+							'flex flex-wrap items-center justify-center gap-sm',
+							summaryHref && 'transition-opacity duration-300 hover:opacity-70',
+						]}
+					>
+						<Stars rating={rating} />
+						<span class="font-heading text-2xl text-text">{formatRating(rating)}</span>
+						<span class="text-text-muted">{totalReviews} avaliações no Google</span>
+					</SummaryWrapper>
+				)
+			}
+		</div>
+
+		{reviews.length > 0 && <ReviewCarousel reviews={reviews} />}
+
+		{
+			showGoogleButton && googleProfileUrl && (
+				<div class="flex justify-center">
+					<a href={googleProfileUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+						{googleButtonLabel}
+					</a>
+				</div>
+			)
+		}
+	</div>
+</section>

@@ -8,27 +8,32 @@ import EditorialGallery from '../components/landing/EditorialGallery.astro';
 import FeaturedTestimonial from '../components/landing/FeaturedTestimonial.astro';
 import FaqAccordion from '../components/landing/FaqAccordion.astro';
 import LandingCta from '../components/landing/LandingCta.astro';
-import { hero, intro, process, gallery, testimonial, faq, cta } from '../data/gestante';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../config/schema';
+import { hero, intro, process, gallery, testimonial, faq, cta, seo } from '../data/gestante';
 
-const title = 'Ensaio Gestante em São José dos Pinhais e Curitiba | Pamela Teice Fotografia';
-const description =
-	'Ensaios gestantes sensíveis e premium em São José dos Pinhais, Curitiba e Região Metropolitana. Fotografias que eternizam a espera com leveza e emoção.';
-
-const faqSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'FAQPage',
-	mainEntity: faq.items.map((item) => ({
-		'@type': 'Question',
-		name: item.question,
-		acceptedAnswer: {
-			'@type': 'Answer',
-			text: item.answer,
-		},
-	})),
-};
+const schema = [
+	serviceSchema({
+		name: 'Ensaio Gestante',
+		description: seo.description,
+		path: seo.path,
+		image: seo.image,
+	}),
+	faqSchema(faq.items),
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Gestante', path: seo.path },
+	]),
+];
 ---
 
-<Layout title={title} description={description}>
+<Layout
+	title={seo.title}
+	description={seo.description}
+	image={seo.image}
+	imageAlt={seo.imageAlt}
+	keywords={seo.keywords}
+>
 	<LandingHero
 		eyebrow={hero.eyebrow}
 		title={hero.title}
@@ -74,5 +79,5 @@ const faqSchema = {
 	/>
 	<Footer />
 
-	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+	<JsonLd schema={schema} />
 </Layout>

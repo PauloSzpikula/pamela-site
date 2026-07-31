@@ -1,0 +1,41 @@
+---
+import Stars from './Stars.astro';
+import { truncateReviewText, getGoogleProfile } from '../../services/ReviewService';
+import type { Review } from '../../data/reviews/reviews';
+
+interface Props {
+	review: Review;
+}
+
+const { review } = Astro.props;
+const { text: displayText, isTruncated } = truncateReviewText(review.text);
+const googleProfileUrl = getGoogleProfile();
+---
+
+<div class="flex h-full flex-col gap-md border border-border p-lg transition-colors duration-300 hover:border-gold">
+	<Stars rating={review.rating} size="sm" />
+
+	<div class="flex flex-col gap-xs">
+		<p class="whitespace-pre-line text-text">{displayText}</p>
+		{
+			isTruncated && googleProfileUrl && (
+				<a
+					href={googleProfileUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group/link inline-flex w-fit items-center gap-1 self-start text-sm text-text-muted transition-colors duration-300 hover:text-gold"
+				>
+					Ler avaliação completa
+					<span class="transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true">
+						→
+					</span>
+				</a>
+			)
+		}
+	</div>
+
+	<div class="mt-auto flex items-center justify-between gap-sm pt-md">
+		<span class="font-semibold text-text">{review.author}</span>
+		<small>{review.date}</small>
+	</div>
+</div>

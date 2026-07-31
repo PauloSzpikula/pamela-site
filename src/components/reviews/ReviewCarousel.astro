@@ -1,0 +1,110 @@
+---
+import ReviewCard from './ReviewCard.astro';
+import type { Review } from '../../data/reviews/reviews';
+
+interface Props {
+	/** Avaliações a exibir. No mobile só as 3 primeiras aparecem; no desktop, até 6. */
+	reviews: Review[];
+}
+
+const { reviews } = Astro.props;
+---
+
+<div class="relative">
+	<div
+		id="review-track"
+		class="flex snap-x snap-mandatory gap-lg overflow-x-auto scroll-smooth pb-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+	>
+		{
+			reviews.map((review, index) => (
+				<div
+					class:list={[
+						'w-[85%] shrink-0 snap-start sm:w-[46%] lg:w-[31%]',
+						index >= 3 && 'hidden md:block',
+					]}
+				>
+					<ReviewCard review={review} />
+				</div>
+			))
+		}
+	</div>
+
+	<div class="mt-lg flex justify-end gap-sm">
+		<button
+			id="review-prev"
+			type="button"
+			aria-label="Avaliação anterior"
+			class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-gold hover:text-gold"
+		>
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+				<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+		</button>
+		<button
+			id="review-next"
+			type="button"
+			aria-label="Próxima avaliação"
+			class="flex h-10 w-10 items-center justify-center border border-border text-text transition-colors duration-300 hover:border-gold hover:text-gold"
+		>
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+				<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<script>
+	const AUTOPLAY_INTERVAL_MS = 6000;
+
+	const track = document.getElementById('review-track');
+	const prev = document.getElementById('review-prev');
+	const next = document.getElementById('review-next');
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	const scrollByCard = (direction: number) => {
+		if (!track) return;
+		track.scrollBy({ left: direction * track.clientWidth * 0.85, behavior: 'smooth' });
+	};
+
+	const isAtEnd = () => {
+		if (!track) return true;
+		return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+	};
+
+	// Avança para o próximo grupo de avaliações; ao chegar no fim, volta ao início.
+	const advance = () => {
+		if (isAtEnd()) {
+			track?.scrollTo({ left: 0, behavior: 'smooth' });
+		} else {
+			scrollByCard(1);
+		}
+	};
+
+	let autoplayTimer: ReturnType<typeof setInterval> | undefined;
+
+	const startAutoplay = () => {
+		if (prefersReducedMotion || !track) return;
+		autoplayTimer = setInterval(advance, AUTOPLAY_INTERVAL_MS);
+	};
+
+	const resetAutoplay = () => {
+		if (prefersReducedMotion) return;
+		if (autoplayTimer) clearInterval(autoplayTimer);
+		startAutoplay();
+	};
+
+	prev?.addEventListener('click', () => {
+		scrollByCard(-1);
+		resetAutoplay();
+	});
+	next?.addEventListener('click', () => {
+		advance();
+		resetAutoplay();
+	});
+
+	// pointerdown cobre clique/arraste no desktop e o início do swipe no touch,
+	// sem disparar para os scrolls programáticos do autoplay/das setas.
+	track?.addEventListener('pointerdown', resetAutoplay, { passive: true });
+
+	startAutoplay();
+</script>

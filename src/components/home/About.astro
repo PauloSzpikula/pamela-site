@@ -14,7 +14,18 @@ const hasPhoto = fs.existsSync(path.join(process.cwd(), 'public', photo));
 		<div
 			class="aspect-[4/5] overflow-hidden bg-surface shadow-[0_25px_60px_-20px_rgba(42,36,32,0.25)] md:aspect-auto md:h-full"
 		>
-			{hasPhoto && <img src={photo} alt="Pamela Teice" class="h-full w-full object-cover" />}
+			{
+				hasPhoto && (
+					<img
+						src={photo}
+						alt="Pamela Teice"
+						width="2434"
+						height="2841"
+						loading="lazy"
+						class="h-full w-full object-cover"
+					/>
+				)
+			}
 		</div>
 
 		<div class="flex flex-col justify-center gap-lg">

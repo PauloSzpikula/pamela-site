@@ -1,15 +1,31 @@
-import { whatsappHrefFor } from './contact';
+import { whatsappHrefFor } from '../config/contact';
 
 export const gestanteWhatsappHref = whatsappHrefFor(
 	'Olá, gostaria de agendar um ensaio de gestante'
 );
+
+export const seo = {
+	path: '/gestante',
+	title: 'Ensaio Gestante em São José dos Pinhais e Curitiba | Pamela Teice Fotografia',
+	description:
+		'Ensaios gestantes sensíveis e premium em São José dos Pinhais, Curitiba e Região Metropolitana. Fotografias que eternizam a espera com leveza e emoção.',
+	image: '/images/portfolio/gestante/gestante-capa.webp',
+	imageAlt: 'Ensaio gestante por Pamela Teice Fotografia',
+	keywords: [
+		'ensaio gestante',
+		'fotógrafa gestante',
+		'ensaio gestante São José dos Pinhais',
+		'ensaio gestante Curitiba',
+		'fotografia de gestante',
+	],
+};
 
 export const hero = {
 	eyebrow: 'Ensaio Gestante',
 	title: 'Um retrato eterno da espera mais bonita da sua vida.',
 	description:
 		'Ensaios sensíveis que celebram a gestação, o vínculo e a beleza desse momento único — em São José dos Pinhais, Curitiba e Região Metropolitana.',
-	image: '/images/portfolio/gestante/gestante-capa.png',
+	image: '/images/portfolio/gestante/gestante-capa.webp',
 	imageAlt: 'Gestante em ensaio fotográfico sensível',
 };
 
@@ -20,7 +36,7 @@ export const intro = {
 		'A gestação é feita de pequenos instantes que passam rápido demais: o primeiro chute, as mãos sobre a barriga, a expectativa no olhar.',
 		'Um ensaio gestante existe para guardar tudo isso — não como uma pose, mas como memória viva de um tempo que só existe uma vez.',
 	],
-	image: '/images/portfolio/gestante/gestante-capa.png',
+	image: '/images/portfolio/gestante/gestante-capa.webp',
 	imageAlt: 'Detalhe sensível de ensaio gestante',
 };
 

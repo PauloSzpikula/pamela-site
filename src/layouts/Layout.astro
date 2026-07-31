@@ -1,34 +1,24 @@
 ---
 import '../styles/global.css';
 import Header from '../components/layout/Header.astro';
+import Seo from '../components/seo/Seo.astro';
+import { site } from '../config/site';
 
 interface Props {
 	title?: string;
 	description?: string;
+	canonical?: string;
+	image?: string;
+	imageAlt?: string;
+	type?: 'website' | 'article';
+	robots?: string;
+	keywords?: string[];
+	noindex?: boolean;
+	/** Caminho da imagem do Hero da página, para preload — só a imagem acima da dobra deve usar isso. */
+	preloadImage?: string;
 }
 
-const {
-	title = 'Pamela Teice Fotografia | Fotógrafa em São José dos Pinhais e Curitiba',
-	description = 'Ensaios de gestante, newborn, infantil, família, escolar e casamento com Pamela Teice, fotógrafa em São José dos Pinhais, Curitiba e Região Metropolitana.',
-} = Astro.props;
-
-const schema = {
-	'@context': 'https://schema.org',
-	'@type': 'Photographer',
-	name: 'Pamela Teice Fotografia',
-	description,
-	url: Astro.site?.toString() ?? Astro.url.origin,
-	image: `${Astro.url.origin}/images/hero/hero-home.webp`,
-	address: {
-		'@type': 'PostalAddress',
-		streetAddress: 'Rua Professor Thales de Souza e Silva',
-		addressLocality: 'São José dos Pinhais',
-		addressRegion: 'PR',
-		addressCountry: 'BR',
-	},
-	areaServed: ['São José dos Pinhais', 'Curitiba', 'Região Metropolitana de Curitiba'],
-	sameAs: ['https://www.instagram.com/pamelateicefotografia'],
-};
+const { preloadImage, ...seoProps } = Astro.props;
 ---
 
 <!doctype html>
@@ -37,17 +27,16 @@ const schema = {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<meta name="theme-color" content={site.themeColor} />
 		<meta name="generator" content={Astro.generator} />
 
-		<title>{title}</title>
-		<meta name="description" content={description} />
+		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:locale" content="pt_BR" />
-
-		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		<Seo {...seoProps} />
 	</head>
 	<body>
 		<Header />
