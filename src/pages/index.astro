@@ -13,7 +13,9 @@ import { organizationSchema, localBusinessSchema, photographerSchema } from '../
 const schema = [organizationSchema(), localBusinessSchema(), photographerSchema()];
 ---
 
-<Layout preloadImage="/images/hero/hero-home.webp">
+<Layout
+	preloadImage={{ desktop: '/images/hero/hero-home.webp', mobile: '/images/hero/hero-mobile.webp' }}
+>
 	<Hero />
 	<About />
 	<Experience />

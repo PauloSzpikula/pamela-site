@@ -1,6 +1,6 @@
 ---
 import Stars from './Stars.astro';
-import { truncateReviewText, getGoogleProfile } from '../../services/ReviewService';
+import { truncateReviewText } from '../../services/ReviewService';
 import type { Review } from '../../data/reviews/reviews';
 
 interface Props {
@@ -9,27 +9,38 @@ interface Props {
 
 const { review } = Astro.props;
 const { text: displayText, isTruncated } = truncateReviewText(review.text);
-const googleProfileUrl = getGoogleProfile();
 ---
 
 <div class="flex h-full flex-col gap-md border border-border p-lg transition-colors duration-300 hover:border-gold">
 	<Stars rating={review.rating} size="sm" />
 
-	<div class="flex flex-col gap-xs">
-		<p class="whitespace-pre-line text-text">{displayText}</p>
+	<div class="review-body flex flex-col gap-xs">
+		<div class="review-collapsed">
+			<p class="whitespace-pre-line text-text">{displayText}</p>
+		</div>
+
 		{
-			isTruncated && googleProfileUrl && (
-				<a
-					href={googleProfileUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="group/link inline-flex w-fit items-center gap-1 self-start text-sm text-text-muted transition-colors duration-300 hover:text-gold"
+			isTruncated && (
+				<div class="review-expanded grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
+					<div class="overflow-hidden">
+						<p class="whitespace-pre-line text-text">{review.text}</p>
+					</div>
+				</div>
+			)
+		}
+
+		{
+			isTruncated && (
+				<button
+					type="button"
+					class="review-toggle inline-flex w-fit items-center gap-1 self-start text-sm text-text-muted transition-colors duration-300 hover:text-gold"
+					aria-expanded="false"
 				>
-					Ler avaliação completa
-					<span class="transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true">
-						→
+					<span class="review-toggle-label">Ler avaliação completa</span>
+					<span class="review-toggle-arrow inline-block transition-transform duration-300" aria-hidden="true">
+						↓
 					</span>
-				</a>
+				</button>
 			)
 		}
 	</div>
@@ -39,3 +50,28 @@ const googleProfileUrl = getGoogleProfile();
 		<small>{review.date}</small>
 	</div>
 </div>
+
+<script>
+	const CLOSED_LABEL = 'Ler avaliação completa';
+	const OPEN_LABEL = 'Mostrar menos';
+
+	document.querySelectorAll<HTMLButtonElement>('.review-toggle').forEach((toggle) => {
+		const body = toggle.closest('.review-body');
+		const collapsed = body?.querySelector<HTMLElement>('.review-collapsed');
+		const expanded = body?.querySelector<HTMLElement>('.review-expanded');
+		const label = toggle.querySelector<HTMLElement>('.review-toggle-label');
+		const arrow = toggle.querySelector<HTMLElement>('.review-toggle-arrow');
+
+		toggle.addEventListener('click', () => {
+			const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+			const next = !isOpen;
+
+			toggle.setAttribute('aria-expanded', String(next));
+			collapsed?.classList.toggle('hidden', next);
+			expanded?.classList.toggle('grid-rows-[1fr]', next);
+			expanded?.classList.toggle('grid-rows-[0fr]', !next);
+			arrow?.classList.toggle('rotate-180', next);
+			if (label) label.textContent = next ? OPEN_LABEL : CLOSED_LABEL;
+		});
+	});
+</script>

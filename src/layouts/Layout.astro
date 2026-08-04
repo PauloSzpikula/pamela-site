@@ -14,11 +14,17 @@ interface Props {
 	robots?: string;
 	keywords?: string[];
 	noindex?: boolean;
-	/** Caminho da imagem do Hero da página, para preload — só a imagem acima da dobra deve usar isso. */
-	preloadImage?: string;
+	/**
+	 * Imagem do Hero da página, para preload — só a imagem acima da dobra deve
+	 * usar isso. Uma string faz preload único; { desktop, mobile } gera dois
+	 * <link> com `media`, casando com um <picture> que troca de imagem por
+	 * breakpoint (ver Hero.astro).
+	 */
+	preloadImage?: string | { desktop: string; mobile: string };
 }
 
 const { preloadImage, ...seoProps } = Astro.props;
+const isResponsivePreload = typeof preloadImage === 'object' && preloadImage !== null;
 ---
 
 <!doctype html>
@@ -34,7 +40,31 @@ const { preloadImage, ...seoProps } = Astro.props;
 		<meta name="theme-color" content={site.themeColor} />
 		<meta name="generator" content={Astro.generator} />
 
-		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+		{
+			preloadImage && isResponsivePreload && (
+				<>
+					<link
+						rel="preload"
+						as="image"
+						href={preloadImage.mobile}
+						media="(max-width: 767px)"
+						fetchpriority="high"
+					/>
+					<link
+						rel="preload"
+						as="image"
+						href={preloadImage.desktop}
+						media="(min-width: 768px)"
+						fetchpriority="high"
+					/>
+				</>
+			)
+		}
+		{
+			preloadImage && !isResponsivePreload && (
+				<link rel="preload" as="image" href={preloadImage as string} fetchpriority="high" />
+			)
+		}
 
 		<Seo {...seoProps} />
 	</head>

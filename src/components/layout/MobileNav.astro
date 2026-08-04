@@ -10,7 +10,7 @@ import { whatsappHref } from '../../config/contact';
 		aria-expanded="false"
 		aria-controls="mobile-nav-menu"
 		aria-label="Abrir menu"
-		class="flex h-10 w-10 items-center justify-center text-bg transition-colors duration-300 group-[.is-scrolled]:text-text"
+		class="flex h-11 w-11 items-center justify-center text-bg transition-colors duration-300 group-[.is-scrolled]:text-text"
 	>
 		<svg
 			id="mobile-nav-icon-open"
@@ -36,7 +36,7 @@ import { whatsappHref } from '../../config/contact';
 
 	<nav
 		id="mobile-nav-menu"
-		class="absolute right-0 top-full hidden w-56 flex flex-col gap-sm border border-border bg-bg p-md shadow-sm"
+		class="invisible absolute right-0 top-full w-56 flex translate-x-3 flex-col gap-sm border border-border bg-bg p-md opacity-0 shadow-sm transition-all duration-200 ease-out [&.is-open]:visible [&.is-open]:translate-x-0 [&.is-open]:opacity-100"
 		aria-label="Navegação mobile"
 	>
 		<ul class="flex flex-col gap-sm">
@@ -68,8 +68,7 @@ import { whatsappHref } from '../../config/contact';
 	const iconClose = document.getElementById('mobile-nav-icon-close');
 
 	toggle?.addEventListener('click', () => {
-		const isHidden = menu?.classList.toggle('hidden');
-		const isOpen = !isHidden;
+		const isOpen = menu?.classList.toggle('is-open') ?? false;
 
 		toggle.setAttribute('aria-expanded', String(isOpen));
 		toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
