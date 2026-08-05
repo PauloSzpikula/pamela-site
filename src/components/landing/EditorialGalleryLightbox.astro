@@ -1,0 +1,339 @@
+---
+interface GalleryImage {
+	image?: string;
+	alt: string;
+}
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	description?: string;
+	/**
+	 * Acervo completo da LP, na ordem desejada. A página mostra só as 4
+	 * primeiras (grid 2×2); o Lightbox sempre navega pelo array inteiro,
+	 * não importa qual foto (ou "Ver galeria completa") o abriu. Itens sem
+	 * `image` viram placeholders "em breve" (não clicáveis, ficam de fora
+	 * do Lightbox).
+	 */
+	images: GalleryImage[];
+}
+
+const { eyebrow, title, description, images } = Astro.props;
+
+const PREVIEW_COUNT = 4;
+const previewImages = images.slice(0, PREVIEW_COUNT);
+
+const photos = images.filter((item): item is GalleryImage & { image: string } => Boolean(item.image));
+const photoIndex = new Map(photos.map((item, i) => [item, i]));
+
+const previewPhotoCount = previewImages.filter((item) => item.image).length;
+const hasViewAll = photos.length > previewPhotoCount;
+
+// Só os dados (src/alt) viajam para o cliente — nenhuma imagem fora do grid
+// 2×2 é baixada até o Lightbox precisar dela (ver Parte 7 do briefing original).
+const photosJson = JSON.stringify(photos.map(({ image, alt }) => ({ image, alt })));
+---
+
+<section id="galeria" class="scroll-mt-20 border-t border-border">
+	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
+		<div class="flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent">{eyebrow}</small>
+			<h2 class="max-w-[42rem]">{title}</h2>
+			{description && <p class="max-w-[36rem] text-text-muted">{description}</p>}
+		</div>
+
+		<div class="grid w-full grid-cols-2 gap-md sm:gap-lg md:gap-xl">
+			{
+				previewImages.map((item) => {
+					if (!item.image) {
+						return (
+							<div class="relative aspect-[3/2] overflow-hidden border border-border bg-surface">
+								<div class="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--color-bg-alt)_0%,var(--color-bg)_100%)]">
+									<svg
+										viewBox="0 0 48 48"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1"
+										class="h-8 w-8 text-border"
+										aria-hidden="true"
+									>
+										<rect x="5" y="13" width="38" height="28" rx="2" />
+										<circle cx="24" cy="27" r="8" />
+										<path d="M17 13l2.5-5h9l2.5 5" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+									<span class="sr-only">Fotografia em breve</span>
+								</div>
+							</div>
+						);
+					}
+
+					return (
+						<button
+							type="button"
+							class="gallery-item group relative aspect-[3/2] overflow-hidden border border-border bg-surface transition-colors duration-300 hover:border-gold"
+							data-gallery-open
+							data-gallery-index={photoIndex.get(item)}
+							aria-label={`Ampliar fotografia: ${item.alt}`}
+						>
+							<img
+								src={item.image}
+								alt={item.alt}
+								loading="lazy"
+								decoding="async"
+								class="h-full w-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
+							/>
+							<span
+								class="pointer-events-none absolute inset-0 flex items-center justify-center bg-[rgba(42,36,32,0.18)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+								aria-hidden="true"
+							>
+								<span class="flex h-11 w-11 items-center justify-center border border-bg/70 text-bg">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+										<path
+											d="M9 4H4v5M15 4h5v5M4 15v5h5M20 15v5h-5"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</span>
+							</span>
+						</button>
+					);
+				})
+			}
+		</div>
+
+		{
+			hasViewAll && (
+				<div class="flex justify-center">
+					<button type="button" id="gallery-view-all" class="btn btn-secondary">
+						Ver galeria completa
+					</button>
+				</div>
+			)
+		}
+	</div>
+</section>
+
+{
+	photos.length > 0 && (
+		<script type="application/json" id="gallery-photos-data" is:inline set:html={photosJson} />
+	)
+}
+
+<div
+	id="gallery-lightbox"
+	class="group/lightbox invisible fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(42,36,32,0.96)] opacity-0 transition-opacity duration-300 [&.is-open]:visible [&.is-open]:opacity-100"
+	role="dialog"
+	aria-modal="true"
+	aria-label={`Galeria de fotos — ${title}`}
+>
+	<button
+		type="button"
+		id="gallery-lightbox-close"
+		aria-label="Fechar galeria"
+		class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center border border-bg/30 text-bg transition-colors duration-300 hover:border-gold hover:text-gold md:right-8 md:top-8"
+	>
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+			<path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+		</svg>
+	</button>
+
+	<p
+		id="gallery-lightbox-counter"
+		aria-live="polite"
+		class="absolute left-4 top-5 z-10 text-bg/70 md:left-8 md:top-9"
+	>
+	</p>
+
+	<button
+		type="button"
+		id="gallery-lightbox-prev"
+		aria-label="Foto anterior"
+		class="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-bg/30 text-bg transition-colors duration-300 hover:border-gold hover:text-gold md:left-6"
+	>
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+			<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+		</svg>
+	</button>
+	<button
+		type="button"
+		id="gallery-lightbox-next"
+		aria-label="Próxima foto"
+		class="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-bg/30 text-bg transition-colors duration-300 hover:border-gold hover:text-gold md:right-6"
+	>
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+			<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+		</svg>
+	</button>
+
+	<figure
+		id="gallery-lightbox-figure"
+		class="inline-block scale-95 leading-none opacity-0 transition-all duration-300 ease-out group-[.is-open]/lightbox:scale-100 group-[.is-open]/lightbox:opacity-100"
+	>
+		<img
+			id="gallery-lightbox-image"
+			alt=""
+			decoding="async"
+			class="max-h-[85vh] max-w-[88vw] w-auto h-auto object-contain shadow-[0_25px_80px_-20px_rgba(0,0,0,0.6)] md:max-w-[80vw]"
+		/>
+	</figure>
+</div>
+
+<script>
+	interface GalleryPhoto {
+		image: string;
+		alt: string;
+	}
+
+	const parseJson = (id: string): GalleryPhoto[] => {
+		const el = document.getElementById(id);
+		if (!el?.textContent) return [];
+		try {
+			const parsed = JSON.parse(el.textContent);
+			return Array.isArray(parsed) ? parsed : [];
+		} catch {
+			return [];
+		}
+	};
+
+	// Conjunto único: qualquer foto clicada, ou "Ver galeria completa", navega
+	// pelo mesmo array — só muda o índice inicial.
+	const photos = parseJson('gallery-photos-data');
+
+	const lightbox = document.getElementById('gallery-lightbox');
+	const figure = document.getElementById('gallery-lightbox-figure');
+	const stage = document.getElementById('gallery-lightbox-image') as HTMLImageElement | null;
+	const counterEl = document.getElementById('gallery-lightbox-counter');
+	const closeBtn = document.getElementById('gallery-lightbox-close');
+	const prevBtn = document.getElementById('gallery-lightbox-prev');
+	const nextBtn = document.getElementById('gallery-lightbox-next');
+	const viewAllBtn = document.getElementById('gallery-view-all');
+
+	if (lightbox && figure && stage && counterEl && closeBtn && prevBtn && nextBtn) {
+		let currentIndex = 0;
+		let lastFocused: HTMLElement | null = null;
+
+		const preload = (photo: GalleryPhoto | undefined) => {
+			if (photo) new Image().src = photo.image;
+		};
+
+		const render = () => {
+			const photo = photos[currentIndex];
+			if (!photo) return;
+			stage.src = photo.image;
+			stage.alt = photo.alt;
+			counterEl.textContent = `${currentIndex + 1} / ${photos.length}`;
+
+			const hasMultiple = photos.length > 1;
+			prevBtn.classList.toggle('hidden', !hasMultiple);
+			nextBtn.classList.toggle('hidden', !hasMultiple);
+
+			preload(photos[(currentIndex + 1) % photos.length]);
+			preload(photos[(currentIndex - 1 + photos.length) % photos.length]);
+		};
+
+		const onKeydown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				e.preventDefault();
+				close();
+			} else if (e.key === 'ArrowLeft') {
+				prev();
+			} else if (e.key === 'ArrowRight') {
+				next();
+			} else if (e.key === 'Tab') {
+				const focusable = [closeBtn, prevBtn, nextBtn].filter((el) => !el.classList.contains('hidden'));
+				const first = focusable[0];
+				const last = focusable[focusable.length - 1];
+				if (e.shiftKey && document.activeElement === first) {
+					e.preventDefault();
+					last.focus();
+				} else if (!e.shiftKey && document.activeElement === last) {
+					e.preventDefault();
+					first.focus();
+				}
+			}
+		};
+
+		const open = (index: number, trigger: HTMLElement | null) => {
+			if (!photos.length) return;
+			currentIndex = index;
+			lastFocused = trigger;
+			render();
+			lightbox.classList.add('is-open');
+			document.body.style.overflow = 'hidden';
+			closeBtn.focus();
+			document.addEventListener('keydown', onKeydown);
+		};
+
+		function close() {
+			lightbox?.classList.remove('is-open');
+			document.body.style.overflow = '';
+			document.removeEventListener('keydown', onKeydown);
+			lastFocused?.focus();
+		}
+
+		function prev() {
+			currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+			render();
+		}
+
+		function next() {
+			currentIndex = (currentIndex + 1) % photos.length;
+			render();
+		}
+
+		document.querySelectorAll<HTMLElement>('[data-gallery-open]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const index = Number(btn.dataset.galleryIndex ?? 0);
+				open(index, btn);
+			});
+		});
+
+		viewAllBtn?.addEventListener('click', (e) => {
+			open(0, e.currentTarget as HTMLElement);
+		});
+
+		lightbox.addEventListener('click', close);
+		[closeBtn, prevBtn, nextBtn].forEach((btn) => {
+			btn.addEventListener('click', (e) => e.stopPropagation());
+		});
+		closeBtn.addEventListener('click', close);
+		prevBtn.addEventListener('click', prev);
+		nextBtn.addEventListener('click', next);
+
+		// Clique nas laterais da própria fotografia avança/volta; clique fora dela (no fundo) fecha.
+		figure.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const rect = figure.getBoundingClientRect();
+			const clickX = e.clientX - rect.left;
+			if (clickX < rect.width / 2) {
+				prev();
+			} else {
+				next();
+			}
+		});
+
+		let touchStartX = 0;
+		let touchStartY = 0;
+		figure.addEventListener(
+			'touchstart',
+			(e) => {
+				touchStartX = e.touches[0].clientX;
+				touchStartY = e.touches[0].clientY;
+			},
+			{ passive: true }
+		);
+		figure.addEventListener(
+			'touchend',
+			(e) => {
+				const dx = e.changedTouches[0].clientX - touchStartX;
+				const dy = e.changedTouches[0].clientY - touchStartY;
+				if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+					if (dx > 0) prev();
+					else next();
+				}
+			},
+			{ passive: true }
+		);
+	}
+</script>

@@ -10,11 +10,11 @@ import FaqAccordion from '../components/landing/FaqAccordion.astro';
 import LandingCta from '../components/landing/LandingCta.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../config/schema';
-import { hero, intro, process, gallery, faq, cta, seo } from '../data/gestante';
+import { hero, intro, process, gallery, faq, cta, seo } from '../data/aniversario-infantil';
 
 const schema = [
 	serviceSchema({
-		name: 'Ensaio Gestante',
+		name: 'Ensaio de Aniversário Infantil',
 		description: seo.description,
 		path: seo.path,
 		image: seo.image,
@@ -22,7 +22,7 @@ const schema = [
 	faqSchema(faq.items),
 	breadcrumbSchema([
 		{ name: 'Home', path: '/' },
-		{ name: 'Gestante', path: seo.path },
+		{ name: 'Aniversário Infantil', path: seo.path },
 	]),
 ];
 ---

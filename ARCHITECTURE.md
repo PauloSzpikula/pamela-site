@@ -6,7 +6,7 @@ Documentação técnica do código-fonte. Para diretrizes de marca/visual, ver `
 
 ### Objetivo
 
-Site institucional da **Pamela Teice Fotografia**: uma Home (aprovada, estável) e uma Landing Page dedicada para cada tipo de ensaio (Gestante, Newborn, Infantil, Família, Escolar, Casamento), todas seguindo o mesmo padrão de componentes, dados e SEO.
+Site institucional da **Pamela Teice Fotografia**: uma Home (aprovada, estável) e uma Landing Page dedicada para cada tipo de ensaio (Gestante, Newborn, Aniversário Infantil, Família, Escolar, Casamento), todas seguindo o mesmo padrão de componentes, dados e SEO.
 
 ### Stack
 
@@ -75,13 +75,13 @@ Tudo em `src/config/`. **Nunca duplicar estes valores em um componente ou págin
 
 ## 4. Como criar uma nova Landing Page
 
-Passo a passo usando **Newborn** como exemplo — repita para Infantil, Família, Escolar, Casamento.
+Passo a passo usando **Newborn** como exemplo — repita para Família, Escolar, Casamento (Gestante e Aniversário Infantil já existem e servem de referência).
 
-1. **Criar `src/data/newborn.ts`** com a mesma forma de `src/data/gestante.ts`: exports `seo`, `hero`, `intro`, `process`, `gallery`, `testimonial`, `faq`, `cta`. Copie a estrutura de `gestante.ts` e troque o conteúdo — não invente campos novos sem necessidade.
+1. **Criar `src/data/newborn.ts`** com a mesma forma de `src/data/gestante.ts`: exports `seo`, `hero`, `intro`, `process`, `gallery`, `faq`, `cta`. Copie a estrutura de `gestante.ts` e troque o conteúdo — não invente campos novos sem necessidade. (A seção de avaliações não entra aqui: vem sempre de `<ReviewSection />`, sem props, dados reais compartilhados entre Home e todas as LPs — ver `src/components/reviews/ReviewSection.astro`.)
 2. **Criar `src/pages/newborn.astro`**, copiando `src/pages/gestante.astro` e trocando:
    - o import de `../data/gestante` para `../data/newborn`;
    - o `schema` do topo: `serviceSchema({ name: 'Ensaio Newborn', ... })`, `faqSchema(faq.items)`, `breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Newborn', path: seo.path }])`.
-   - a estrutura de `<Layout>` com os 7 componentes de `landing/` permanece idêntica.
+   - a estrutura de `<Layout>` com os componentes de `landing/` + `<ReviewSection />` permanece idêntica.
 3. **Marcar como publicada** em `src/data/portfolio.ts`: adicione `published: true` na categoria `newborn`.
 4. **Conferir a imagem de capa** em `public/images/portfolio/newborn/` (mesmo padrão de nome usado pelas outras categorias).
 5. **Nada mais a fazer nos seguintes pontos — eles já funcionam automaticamente:**
@@ -126,9 +126,8 @@ Os três últimos são **endpoints Astro** (`.ts` em `src/pages/`), não arquivo
 
 Próximas etapas previstas para o projeto:
 
-- **Sistema de avaliações Google** — exibir/agregar avaliações do Google Meu Negócio (possivelmente novo schema `AggregateRating`/`Review` em `config/schema.ts`).
-- **LP Newborn** — seguir o passo a passo da seção 4.
-- **LP Infantil** — idem.
+- ~~**Sistema de avaliações Google**~~ — feito: `<ReviewSection />`, compartilhado por Home e todas as LPs.
+- **LP Newborn** — seguir o passo a passo da seção 4. (Gestante e Aniversário Infantil já concluídas.)
 - **LP Família** — idem.
 - **LP Escolar** — idem.
 - **LP Casamento** — idem.

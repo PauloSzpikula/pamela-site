@@ -14,7 +14,12 @@ export const portfolioCategories: PortfolioCategory[] = [
 		published: true,
 	},
 	{ slug: 'newborn', label: 'Newborn', image: '/images/portfolio/newborn/newborn-capa.webp' },
-	{ slug: 'infantil', label: 'Infantil', image: '/images/portfolio/infantil/infantil-capa.webp' },
+	{
+		slug: 'aniversario-infantil',
+		label: 'Aniversário Infantil',
+		image: '/images/portfolio/infantil/infantil-capa.webp',
+		published: true,
+	},
 	{ slug: 'familia', label: 'Família', image: '/images/portfolio/familia/familia-capa.webp' },
 	{ slug: 'escolar', label: 'Escolar', image: '/images/portfolio/escolar/escolar-capa.webp' },
 	{ slug: 'casamento', label: 'Casamento', image: '/images/portfolio/casamento/casamento-capa.webp' },

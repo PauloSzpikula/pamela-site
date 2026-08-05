@@ -36,8 +36,8 @@ export const intro = {
 		'A gestação é feita de pequenos instantes que passam rápido demais: o primeiro chute, as mãos sobre a barriga, a expectativa no olhar.',
 		'Um ensaio gestante existe para guardar tudo isso — não como uma pose, mas como memória viva de um tempo que só existe uma vez.',
 	],
-	image: '/images/portfolio/gestante/gestante-capa.webp',
-	imageAlt: 'Detalhe sensível de ensaio gestante',
+	image: '/images/portfolio/gestante/pq-registrar.webp',
+	imageAlt: 'Casal sorridente em ensaio gestante, ele com as mãos na barriga dela',
 };
 
 export const process = {
@@ -70,15 +70,47 @@ export const process = {
 export const gallery = {
 	eyebrow: 'Galeria',
 	title: 'Um ensaio, muitos instantes.',
-	description: 'Em breve, fotografias reais substituirão estes espaços.',
-	items: [
-		{ span: 'lg' as const },
-		{ span: 'tall' as const },
-		{ span: 'sm' as const },
-		{ span: 'wide' as const },
-		{ span: 'sm' as const },
-		{ span: 'wide' as const },
-		{ span: 'sm' as const },
+	images: [
+		{
+			image: '/images/portfolio/gestante/01-gestante.webp',
+			alt: 'Gestante posando com chapéu preto em ensaio de estúdio',
+		},
+		{
+			image: '/images/portfolio/gestante/02-gestante.webp',
+			alt: 'Casal segurando sapatinhos vermelhos de bebê sobre a barriga da gestante',
+		},
+		{
+			image: '/images/portfolio/gestante/03-gestante.webp',
+			alt: 'Detalhe de beijo na barriga durante ensaio gestante',
+		},
+		{
+			image: '/images/portfolio/gestante/04-gestante.webp',
+			alt: 'Gestante em vestido longo azul-marinho em ensaio de estúdio',
+		},
+		{
+			image: '/images/portfolio/gestante/05-gestante.webp',
+			alt: 'Casal abraçado durante ensaio gestante, ela em vestido verde longo',
+		},
+		{
+			image: '/images/portfolio/gestante/06-gestante.webp',
+			alt: 'Filho mais velho encostando o rosto na barriga da mãe grávida',
+		},
+		{
+			image: '/images/portfolio/gestante/07-gestante.webp',
+			alt: 'Casal em momento íntimo durante ensaio gestante',
+		},
+		{
+			image: '/images/portfolio/gestante/08-gestante.webp',
+			alt: 'Casal sorridente em ensaio gestante, ela acariciando o rosto dele',
+		},
+		{
+			image: '/images/portfolio/gestante/09-gestante.webp',
+			alt: 'Casal se abraçando durante ensaio gestante',
+		},
+		{
+			image: '/images/portfolio/gestante/10-gestante.webp',
+			alt: 'Casal em ensaio gestante, ela com chapéu de palha e vestido de renda branco',
+		},
 	],
 };
 
