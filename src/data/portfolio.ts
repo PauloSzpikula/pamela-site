@@ -37,5 +37,10 @@ export const portfolioCategories: PortfolioCategory[] = [
 		image: '/images/portfolio/acompanhamento/acompanhamento-capa.webp',
 		published: true,
 	},
-	{ slug: 'casamento', label: 'Casamento', image: '/images/portfolio/casamento/casamento-capa.webp' },
+	{
+		slug: 'eventos',
+		label: 'Eventos',
+		image: '/images/portfolio/eventos/eventos-capa.webp',
+		published: true,
+	},
 ];

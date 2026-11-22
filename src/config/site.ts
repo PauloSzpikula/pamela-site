@@ -39,7 +39,7 @@ export const site: SiteConfig = {
 	areaServed: ['São José dos Pinhais', 'Curitiba', 'Região Metropolitana de Curitiba'],
 	defaultTitle: 'Pamela Teice Fotografia | Fotógrafa em São José dos Pinhais e Curitiba',
 	defaultDescription:
-		'Ensaios de gestante, parto, newborn, acompanhamento mensal, infantil e casamento com Pamela Teice, fotógrafa em São José dos Pinhais, Curitiba e Região Metropolitana.',
+		'Ensaios de gestante, parto, newborn, acompanhamento mensal, aniversário infantil e eventos com Pamela Teice, fotógrafa em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	defaultImage: '/images/hero/hero-home.webp',
 	themeColor: '#7c8560',
 	backgroundColor: '#f2ece3',
