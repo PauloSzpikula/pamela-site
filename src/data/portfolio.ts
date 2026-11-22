@@ -13,7 +13,12 @@ export const portfolioCategories: PortfolioCategory[] = [
 		image: '/images/portfolio/gestante/gestante-capa.webp',
 		published: true,
 	},
-	{ slug: 'newborn', label: 'Newborn', image: '/images/portfolio/newborn/newborn-capa.webp' },
+	{
+		slug: 'newborn',
+		label: 'Newborn',
+		image: '/images/portfolio/newborn/newborn-capa.webp',
+		published: true,
+	},
 	{
 		slug: 'aniversario-infantil',
 		label: 'Aniversário Infantil',

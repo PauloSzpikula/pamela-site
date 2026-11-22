@@ -127,7 +127,7 @@ Os três últimos são **endpoints Astro** (`.ts` em `src/pages/`), não arquivo
 Próximas etapas previstas para o projeto:
 
 - ~~**Sistema de avaliações Google**~~ — feito: `<ReviewSection />`, compartilhado por Home e todas as LPs.
-- **LP Newborn** — seguir o passo a passo da seção 4. (Gestante e Aniversário Infantil já concluídas.)
+- ~~**LP Newborn**~~ — feito. (Gestante, Aniversário Infantil e Newborn concluídas.)
 - **LP Família** — idem.
 - **LP Escolar** — idem.
 - **LP Casamento** — idem.
