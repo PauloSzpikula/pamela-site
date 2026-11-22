@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/home/Footer.astro';
+import LandingHero from '../components/landing/LandingHero.astro';
+import EditorialIntro from '../components/landing/EditorialIntro.astro';
+import ProcessSteps from '../components/landing/ProcessSteps.astro';
+import EditorialGalleryLightbox from '../components/landing/EditorialGalleryLightbox.astro';
+import ReviewSection from '../components/reviews/ReviewSection.astro';
+import FaqAccordion from '../components/landing/FaqAccordion.astro';
+import LandingCta from '../components/landing/LandingCta.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../config/schema';
+import { hero, intro, process, gallery, faq, cta, seo } from '../data/acompanhamento';
+
+const schema = [
+	serviceSchema({
+		name: 'Acompanhamento Mensal do Bebê',
+		description: seo.description,
+		path: seo.path,
+		image: seo.image,
+	}),
+	faqSchema(faq.items),
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Acompanhamento', path: seo.path },
+	]),
+];
+---
+
+<Layout
+	title={seo.title}
+	description={seo.description}
+	image={seo.image}
+	imageAlt={seo.imageAlt}
+	keywords={seo.keywords}
+>
+	<LandingHero
+		eyebrow={hero.eyebrow}
+		title={hero.title}
+		description={hero.description}
+		image={hero.image}
+		imageAlt={hero.imageAlt}
+		primaryLabel="Agendar Ensaio"
+		primaryHref={cta.primaryHref}
+		secondaryLabel="Ver Portfólio"
+		secondaryHref="#galeria"
+	/>
+	<EditorialIntro
+		eyebrow={intro.eyebrow}
+		title={intro.title}
+		paragraphs={intro.paragraphs}
+		image={intro.image}
+		imageAlt={intro.imageAlt}
+	/>
+	<ProcessSteps eyebrow={process.eyebrow} title={process.title} steps={process.steps} />
+	<EditorialGalleryLightbox
+		eyebrow={gallery.eyebrow}
+		title={gallery.title}
+		images={gallery.images}
+	/>
+	<ReviewSection />
+	<FaqAccordion eyebrow={faq.eyebrow} title={faq.title} items={faq.items} />
+	<LandingCta
+		eyebrow={cta.eyebrow}
+		title={cta.title}
+		description={cta.description}
+		primaryLabel={cta.primaryLabel}
+		primaryHref={cta.primaryHref}
+		secondaryLabel={cta.secondaryLabel}
+		secondaryHref={cta.secondaryHref}
+	/>
+	<Footer />
+
+	<JsonLd schema={schema} />
+</Layout>

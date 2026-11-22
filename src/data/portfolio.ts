@@ -31,6 +31,11 @@ export const portfolioCategories: PortfolioCategory[] = [
 		image: '/images/portfolio/parto/parto-capa.webp',
 		published: true,
 	},
-	{ slug: 'escolar', label: 'Escolar', image: '/images/portfolio/escolar/escolar-capa.webp' },
+	{
+		slug: 'acompanhamento',
+		label: 'Acompanhamento',
+		image: '/images/portfolio/acompanhamento/acompanhamento-capa.webp',
+		published: true,
+	},
 	{ slug: 'casamento', label: 'Casamento', image: '/images/portfolio/casamento/casamento-capa.webp' },
 ];
