@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/home/Footer.astro';
+import { site } from '../config/site';
+import { contact, whatsappHref } from '../config/contact';
+import { instagramHref, social } from '../config/social';
+
+const updatedAt = '22 de novembro de 2026';
+---
+
+<Layout
+	title={`Política de Privacidade | ${site.name}`}
+	description={`Como a ${site.name} trata dados pessoais e cookies neste site, conforme a LGPD.`}
+>
+	<!-- Faixa escura no topo: o Header é transparente com texto claro até o scroll. -->
+	<section class="bg-text pb-xl pt-[calc(78px+3rem)] text-bg">
+		<div class="site-container flex flex-col gap-sm">
+			<small class="font-semibold uppercase tracking-[0.25em] text-bg/80">Privacidade</small>
+			<h1>Política de Privacidade</h1>
+			<small class="text-bg/70">Última atualização: {updatedAt}</small>
+		</div>
+	</section>
+
+	<article
+		class="site-container flex max-w-[48rem] flex-col gap-lg py-xl [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-gold [&_h2]:pt-sm [&_li]:leading-relaxed [&_ul]:flex [&_ul]:list-disc [&_ul]:flex-col [&_ul]:gap-xs [&_ul]:pl-md"
+	>
+		<p>
+			Esta política explica como a <strong>{site.name}</strong> ("nós") trata dados pessoais de
+			quem visita o site <strong>{site.domain}</strong>, em conformidade com a Lei Geral de Proteção
+			de Dados (Lei nº 13.709/2018 — LGPD).
+		</p>
+
+		<h2>1. Quem é a responsável pelos dados</h2>
+		<p>
+			{site.name}, com atendimento em {site.city} – {site.state}. Para qualquer assunto sobre
+			privacidade, fale com a gente pelo WhatsApp <a href={whatsappHref} target="_blank"
+				rel="noopener noreferrer">{contact.phone}</a
+			> ou pelo Instagram <a href={instagramHref} target="_blank" rel="noopener noreferrer"
+				>{social.instagram.handle}</a
+			>.
+		</p>
+
+		<h2>2. Quais dados coletamos</h2>
+		<ul>
+			<li>
+				<strong>Dados que você nos envia</strong> ao entrar em contato (por exemplo, nome, telefone
+				e informações sobre o ensaio desejado), pelo WhatsApp ou Instagram. O site em si não tem
+				formulários e não pede dados pessoais.
+			</li>
+			<li>
+				<strong>Dados de navegação</strong>, coletados por cookies e tecnologias semelhantes
+				<strong>somente se você aceitar</strong> no aviso de cookies: páginas visitadas, tempo no
+				site, cliques em botões (como o de WhatsApp), tipo de dispositivo, navegador, cidade
+				aproximada e a origem da visita (por exemplo, um anúncio).
+			</li>
+		</ul>
+
+		<h2>3. Para que usamos</h2>
+		<ul>
+			<li>Responder seu contato, enviar orçamentos e realizar o ensaio contratado.</li>
+			<li>Entender quais páginas e ensaios despertam mais interesse, para melhorar o site.</li>
+			<li>
+				Medir o resultado dos nossos anúncios no Google e na Meta (Facebook/Instagram) e mostrar
+				anúncios mais relevantes.
+			</li>
+		</ul>
+
+		<h2>4. Bases legais</h2>
+		<p>
+			Usamos seus dados de contato para atender sua solicitação e executar o contrato do ensaio
+			(art. 7º, V, da LGPD). Os cookies de medição e de publicidade só são ativados com o seu
+			<strong>consentimento</strong> (art. 7º, I), que você pode retirar a qualquer momento.
+		</p>
+
+		<h2>5. Cookies e ferramentas de terceiros</h2>
+		<p>
+			Gerenciamos as ferramentas abaixo pelo Google Tag Manager. Enquanto você não aceitar, elas
+			não gravam cookies no seu navegador.
+		</p>
+		<ul>
+			<li>
+				<strong>Google Analytics</strong> (Google) — estatísticas de uso do site.
+			</li>
+			<li>
+				<strong>Google Ads</strong> (Google) — mede quantos contatos vieram dos anúncios no Google.
+			</li>
+			<li>
+				<strong>Meta Pixel</strong> (Meta Platforms) — mede quantos contatos vieram dos anúncios no
+				Facebook e no Instagram.
+			</li>
+		</ul>
+		<p>
+			Guardamos a sua escolha sobre cookies no próprio navegador por até 12 meses. Para mudar a
+			escolha a qualquer momento, clique em
+			<button
+				type="button"
+				data-open-cookie-preferences
+				class="cursor-pointer underline underline-offset-2 hover:text-gold">preferências de cookies</button
+			>.
+		</p>
+
+		<h2>6. Compartilhamento e transferência internacional</h2>
+		<p>
+			Não vendemos seus dados. Os dados de navegação são tratados pelo Google e pela Meta, que
+			podem armazená-los em servidores fora do Brasil, com as garantias previstas na LGPD. Cada
+			empresa tem a própria política de privacidade:
+			<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
+				>Google</a
+			> e <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer"
+				>Meta</a
+			>.
+		</p>
+
+		<h2>7. Por quanto tempo guardamos</h2>
+		<p>
+			Dados de contato e de clientes são mantidos pelo tempo necessário para o atendimento e para
+			cumprir obrigações legais. Dados de navegação seguem os prazos das ferramentas (por padrão,
+			até 14 meses no Google Analytics).
+		</p>
+
+		<h2>8. Seus direitos</h2>
+		<p>
+			Você pode pedir, a qualquer momento: confirmação de que tratamos seus dados, acesso, correção,
+			exclusão, portabilidade, informações sobre compartilhamento e a retirada do consentimento
+			(art. 18 da LGPD). Basta falar com a gente pelos canais do item 1. Você também pode recorrer
+			à Autoridade Nacional de Proteção de Dados (ANPD).
+		</p>
+
+		<h2>9. Alterações</h2>
+		<p>
+			Podemos atualizar esta política. A data da última atualização fica sempre no topo da página.
+		</p>
+	</article>
+
+	<Footer />
+</Layout>

@@ -23,8 +23,6 @@ export interface SiteConfig {
 	themeColor: string;
 	/** Cor de fundo usada no manifest (--color-bg do design system). */
 	backgroundColor: string;
-	/** ID do container do Google Tag Manager, carregado em todas as páginas via Layout. */
-	gtmId: string;
 }
 
 export const site: SiteConfig = {
@@ -45,5 +43,4 @@ export const site: SiteConfig = {
 	defaultImage: '/images/hero/hero-home.webp',
 	themeColor: '#7c8560',
 	backgroundColor: '#f2ece3',
-	gtmId: 'GTM-MQZT457Z',
 };

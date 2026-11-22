@@ -1,0 +1,96 @@
+---
+/**
+ * Banner de consentimento de cookies (LGPD) integrado ao Consent Mode v2 do Google.
+ *
+ * - Aparece só para quem ainda não escolheu (ou cuja escolha expirou — CONSENT_MAX_AGE_DAYS).
+ * - Começa com `hidden` no HTML: não afeta o LCP nem pisca para quem já escolheu.
+ * - A escolha atualiza o consentimento e dispara `cookie_consent_update` no dataLayer,
+ *   que o GTM usa para disparar as tags que estavam aguardando (ex: Meta Pixel).
+ * - Qualquer elemento com [data-open-cookie-preferences] reabre o banner (ver Footer).
+ */
+---
+
+<div
+	id="cookie-banner"
+	role="region"
+	aria-label="Aviso de cookies"
+	hidden
+	class="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-bg shadow-[0_-8px_24px_rgba(42,36,32,0.08)]"
+>
+	<div
+		class="site-container flex flex-col gap-sm py-sm md:flex-row md:items-center md:justify-between md:gap-lg md:py-md"
+	>
+		<p class="max-w-[46rem] text-sm text-text-muted">
+			Usamos cookies para entender como o site é usado e medir nossos anúncios. Você pode
+			aceitar ou recusar —
+			<a href="/politica-de-privacidade" class="underline underline-offset-2 hover:text-gold"
+				>política de privacidade</a
+			>.
+		</p>
+		<div class="flex shrink-0 gap-sm">
+			<button type="button" data-consent-choice="denied" class="btn btn-secondary flex-1 md:flex-none">
+				Recusar
+			</button>
+			<button type="button" data-consent-choice="granted" class="btn btn-primary flex-1 md:flex-none">
+				Aceitar
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	import { CONSENT_STORAGE_KEY, CONSENT_MAX_AGE_DAYS } from '../../config/analytics';
+
+	type ConsentStatus = 'granted' | 'denied';
+	type TagWindow = Window & {
+		gtag: (...args: unknown[]) => void;
+		dataLayer: Record<string, unknown>[];
+		fbq?: (...args: unknown[]) => void;
+	};
+
+	const w = window as unknown as TagWindow;
+	const banner = document.getElementById('cookie-banner');
+	const maxAgeMs = CONSENT_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+
+	const hasValidChoice = (): boolean => {
+		try {
+			const saved = JSON.parse(localStorage.getItem(CONSENT_STORAGE_KEY) ?? 'null');
+			return Boolean(saved && Date.now() - saved.ts < maxAgeMs);
+		} catch {
+			return false;
+		}
+	};
+
+	const choose = (status: ConsentStatus) => {
+		try {
+			localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ status, ts: Date.now() }));
+		} catch {
+			// Sem storage (aba anônima restrita): vale só para esta página.
+		}
+
+		w.gtag('consent', 'update', {
+			ad_storage: status,
+			ad_user_data: status,
+			ad_personalization: status,
+			analytics_storage: status,
+		});
+		// Se o Pixel já carregou (consentimento dado antes e revogado agora), respeita a revogação.
+		w.fbq?.('consent', status === 'granted' ? 'grant' : 'revoke');
+		w.dataLayer.push({ event: 'cookie_consent_update', consent_status: status });
+
+		if (banner) banner.hidden = true;
+	};
+
+	if (banner && !hasValidChoice()) banner.hidden = false;
+
+	banner?.querySelectorAll<HTMLButtonElement>('[data-consent-choice]').forEach((button) => {
+		button.addEventListener('click', () => choose(button.dataset.consentChoice as ConsentStatus));
+	});
+
+	document.querySelectorAll('[data-open-cookie-preferences]').forEach((trigger) => {
+		trigger.addEventListener('click', (e) => {
+			e.preventDefault();
+			if (banner) banner.hidden = false;
+		});
+	});
+</script>

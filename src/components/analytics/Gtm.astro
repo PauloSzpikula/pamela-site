@@ -1,0 +1,109 @@
+---
+/**
+ * Google Tag Manager + Consent Mode v2. Vai no topo do <head> (ver Layout.astro).
+ *
+ * Ordem importa:
+ * 1. Consentimento padrão = negado (LGPD: cookies de medição/anúncio só após aceite).
+ * 2. Se o visitante já escolheu antes (localStorage), aplica a escolha antes do GTM carregar.
+ * 3. Contexto da página (page_type/service) entra no dataLayer — vira variável no GTM.
+ * 4. Carrega o GTM.
+ *
+ * Cliques em WhatsApp/Instagram/telefone viram eventos no dataLayer (script abaixo).
+ * Contrato completo dos eventos: docs/ANALYTICS.md.
+ */
+import {
+	GTM_ID,
+	CONSENT_STORAGE_KEY,
+	CONSENT_MAX_AGE_DAYS,
+	type PageContext,
+} from '../../config/analytics';
+
+type Props = PageContext;
+
+const { pageType, service } = Astro.props;
+---
+
+<script
+	is:inline
+	define:vars={{
+		gtmId: GTM_ID,
+		consentKey: CONSENT_STORAGE_KEY,
+		consentMaxAgeMs: CONSENT_MAX_AGE_DAYS * 24 * 60 * 60 * 1000,
+		pageType,
+		service,
+	}}
+>
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = function () {
+		window.dataLayer.push(arguments);
+	};
+
+	gtag('consent', 'default', {
+		ad_storage: 'denied',
+		ad_user_data: 'denied',
+		ad_personalization: 'denied',
+		analytics_storage: 'denied',
+		functionality_storage: 'granted',
+		security_storage: 'granted',
+		wait_for_update: 500,
+	});
+	gtag('set', 'ads_data_redaction', true);
+	gtag('set', 'url_passthrough', true);
+
+	var consentStatus = 'pending';
+	try {
+		var saved = JSON.parse(localStorage.getItem(consentKey) || 'null');
+		if (saved && Date.now() - saved.ts < consentMaxAgeMs) consentStatus = saved.status;
+	} catch (e) {}
+
+	if (consentStatus === 'granted') {
+		gtag('consent', 'update', {
+			ad_storage: 'granted',
+			ad_user_data: 'granted',
+			ad_personalization: 'granted',
+			analytics_storage: 'granted',
+		});
+	}
+
+	window.dataLayer.push({ page_type: pageType, service: service, consent_status: consentStatus });
+
+	(function (w, d, s, l, i) {
+		w[l] = w[l] || [];
+		w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+		var f = d.getElementsByTagName(s)[0],
+			j = d.createElement(s),
+			dl = l != 'dataLayer' ? '&l=' + l : '';
+		j.async = true;
+		j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+		f.parentNode.insertBefore(j, f);
+	})(window, document, 'script', 'dataLayer', gtmId);
+</script>
+
+<script>
+	type DataLayerWindow = Window & { dataLayer: Record<string, unknown>[] };
+
+	const eventFor = (href: string): string | null => {
+		if (/wa\.me|whatsapp\.com|^whatsapp:/i.test(href)) return 'whatsapp_click';
+		if (/instagram\.com/i.test(href)) return 'instagram_click';
+		if (/^tel:/i.test(href)) return 'phone_click';
+		return null;
+	};
+
+	// Delegação única: cobre qualquer link (atual ou futuro) sem script por componente.
+	document.addEventListener('click', (e) => {
+		const link = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href]');
+		if (!link) return;
+
+		const event = eventFor(link.href);
+		if (!event) return;
+
+		(window as unknown as DataLayerWindow).dataLayer.push({
+			event,
+			cta_location: link.dataset.cta ?? 'outro',
+			link_text: (link.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, 100),
+			link_url: link.href,
+			page_type: document.body.dataset.pageType,
+			service: document.body.dataset.service,
+		});
+	});
+</script>

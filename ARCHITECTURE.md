@@ -29,6 +29,7 @@ src/
 ├── components/
 │   ├── seo/         # Seo.astro, JsonLd.astro — reutilizáveis por qualquer página
 │   ├── layout/       # Header, Nav, MobileNav, Logo — usados em todas as páginas
+│   ├── analytics/    # GTM, Consent Mode v2, banner de cookies — ver docs/ANALYTICS.md
 │   ├── home/         # Componentes exclusivos da Home — não reutilizar em LPs
 │   └── landing/      # Componentes genéricos das Landing Pages — reutilizados por todas
 ├── data/            # Conteúdo e estrutura: nav.ts, portfolio.ts, gestante.ts (uma por LP)
@@ -68,6 +69,7 @@ Tudo em `src/config/`. **Nunca duplicar estes valores em um componente ou págin
 | Telefone | `src/config/contact.ts` | `contact.phone`, `contact.phoneHref` |
 | WhatsApp | `src/config/contact.ts` | `contact.whatsappNumber`, `whatsappHref` (mensagem padrão), `whatsappHrefFor(mensagem)` (mensagem específica por página) |
 | Instagram / redes sociais | `src/config/social.ts` | `social.instagram`, `instagramHref`, `sameAs` (array para dados estruturados) |
+| Google Tag Manager / consentimento | `src/config/analytics.ts` | `GTM_ID`, `CONSENT_STORAGE_KEY`, `CONSENT_MAX_AGE_DAYS`, `pageContextFor()` |
 
 `site.url` também alimenta `astro.config.mjs` (`site:`), que é importado diretamente de lá — o domínio de produção existe em **um único lugar** do projeto.
 
@@ -132,4 +134,4 @@ Próximas etapas previstas para o projeto:
 - **LP Escolar** — idem.
 - **LP Casamento** — idem.
 - **Performance** — otimização de imagens (formatos/tamanhos responsivos), auditoria Lighthouse.
-- **Analytics** — instrumentação de métricas de tráfego/conversão (ferramenta ainda não definida).
+- ~~**Analytics**~~ — feito: GTM + Consent Mode v2 + banner LGPD + eventos de clique no WhatsApp. Ver `docs/ANALYTICS.md`.

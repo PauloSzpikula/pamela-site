@@ -60,6 +60,7 @@ import { instagramHref } from '../../config/social';
 					<li class="pt-xs">
 						<a
 							href={whatsappHref}
+							data-cta="footer"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="transition-colors duration-300 hover:text-gold"
@@ -70,6 +71,7 @@ import { instagramHref } from '../../config/social';
 					<li>
 						<a
 							href={instagramHref}
+							data-cta="footer"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="transition-colors duration-300 hover:text-gold"
@@ -86,7 +88,22 @@ import { instagramHref } from '../../config/social';
 		<div
 			class="flex flex-col items-center gap-sm text-center text-text-muted md:flex-row md:items-center md:justify-between md:text-left"
 		>
-			<small>© 2026 Pamela Teice Fotografia. Todos os direitos reservados.</small>
+			<div class="flex flex-col items-center gap-xs md:flex-row md:gap-sm">
+				<small>© 2026 Pamela Teice Fotografia. Todos os direitos reservados.</small>
+				<small class="flex items-center gap-sm">
+					<a href="/politica-de-privacidade" class="transition-colors duration-300 hover:text-gold"
+						>Política de privacidade</a
+					>
+					<span aria-hidden="true">·</span>
+					<button
+						type="button"
+						data-open-cookie-preferences
+						class="cursor-pointer transition-colors duration-300 hover:text-gold"
+					>
+						Cookies
+					</button>
+				</small>
+			</div>
 			<small>Feito com carinho para preservar histórias.</small>
 		</div>
 	</div>
