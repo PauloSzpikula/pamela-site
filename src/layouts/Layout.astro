@@ -7,6 +7,8 @@ import Gtm from '../components/analytics/Gtm.astro';
 import GtmNoscript from '../components/analytics/GtmNoscript.astro';
 import CookieBanner from '../components/analytics/CookieBanner.astro';
 import { pageContextFor } from '../config/analytics';
+import FloatingWhatsapp from '../components/layout/FloatingWhatsapp.astro';
+import { whatsappHref as defaultWhatsappHref } from '../config/contact';
 
 interface Props {
 	title?: string;
@@ -24,10 +26,12 @@ interface Props {
 	 * <link> com `media`, casando com um <picture> que troca de imagem por
 	 * breakpoint (ver Hero.astro).
 	 */
-	preloadImage?: string | { desktop: string; mobile: string };
+	preloadImage?: string | { desktop: string; mobile: string; desktopSrcset?: string };
+	/** Link do botão flutuante de WhatsApp (mobile). LPs passam o link com a mensagem do ensaio. */
+	whatsappHref?: string;
 }
 
-const { preloadImage, ...seoProps } = Astro.props;
+const { preloadImage, whatsappHref = defaultWhatsappHref, ...seoProps } = Astro.props;
 const isResponsivePreload = typeof preloadImage === 'object' && preloadImage !== null;
 const pageContext = pageContextFor(Astro.url.pathname);
 ---
@@ -36,7 +40,7 @@ const pageContext = pageContextFor(Astro.url.pathname);
 <html lang="pt-BR">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<Gtm {...pageContext} />
 
@@ -62,6 +66,8 @@ const pageContext = pageContextFor(Astro.url.pathname);
 						rel="preload"
 						as="image"
 						href={preloadImage.desktop}
+						imagesrcset={preloadImage.desktopSrcset}
+						imagesizes={preloadImage.desktopSrcset ? '100vw' : undefined}
 						media="(min-width: 768px)"
 						fetchpriority="high"
 					/>
@@ -80,6 +86,7 @@ const pageContext = pageContextFor(Astro.url.pathname);
 		<GtmNoscript />
 		<Header />
 		<slot />
+		<FloatingWhatsapp href={whatsappHref} />
 		<CookieBanner />
 	</body>
 </html>

@@ -68,12 +68,33 @@ import { whatsappHref } from '../../config/contact';
 	const iconOpen = document.getElementById('mobile-nav-icon-open');
 	const iconClose = document.getElementById('mobile-nav-icon-close');
 
-	toggle?.addEventListener('click', () => {
-		const isOpen = menu?.classList.toggle('is-open') ?? false;
-
-		toggle.setAttribute('aria-expanded', String(isOpen));
-		toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+	const setOpen = (isOpen: boolean) => {
+		menu?.classList.toggle('is-open', isOpen);
+		toggle?.setAttribute('aria-expanded', String(isOpen));
+		toggle?.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
 		iconOpen?.classList.toggle('hidden', isOpen);
 		iconClose?.classList.toggle('hidden', !isOpen);
+	};
+
+	const isOpen = () => menu?.classList.contains('is-open') ?? false;
+
+	toggle?.addEventListener('click', (e) => {
+		e.stopPropagation();
+		setOpen(!isOpen());
+	});
+
+	// Fecha ao escolher um item (inclusive âncoras da mesma página, como /#sobre na Home),
+	// ao tocar fora do menu e com Esc.
+	menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+
+	document.addEventListener('click', (e) => {
+		if (isOpen() && !menu?.contains(e.target as Node)) setOpen(false);
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && isOpen()) {
+			setOpen(false);
+			toggle?.focus();
+		}
 	});
 </script>

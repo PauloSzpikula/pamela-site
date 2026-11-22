@@ -28,6 +28,8 @@ const schema = [
 ---
 
 <Layout
+	preloadImage={{ desktop: hero.image, mobile: hero.imageMobile }}
+	whatsappHref={cta.primaryHref}
 	title={seo.title}
 	description={seo.description}
 	image={seo.image}
@@ -40,9 +42,10 @@ const schema = [
 		description={hero.description}
 		image={hero.image}
 		imageAlt={hero.imageAlt}
+		imageMobile={hero.imageMobile}
 		primaryLabel="Agendar Ensaio"
 		primaryHref={cta.primaryHref}
-		secondaryLabel="Ver Portfólio"
+		secondaryLabel="Ver fotos"
 		secondaryHref="#galeria"
 	/>
 	<EditorialIntro

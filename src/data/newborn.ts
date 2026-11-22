@@ -28,8 +28,9 @@ export const hero = {
 	eyebrow: 'Ensaio Newborn',
 	title: 'Os primeiros dias passam rápido. As fotografias ficam para sempre.',
 	description:
-		'Ensaios delicados e seguros que guardam os detalhes, a pele macia e o aconchego dos primeiros dias do seu bebê — em São José dos Pinhais, Curitiba e Região Metropolitana.',
+		'Ensaios delicados e seguros que guardam os detalhes, a pele macia e o aconchego dos primeiros dias do seu bebê, em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	image: '/images/portfolio/newborn/26-newborn.webp',
+	imageMobile: '/images/portfolio/newborn/newborn-hero-mobile.webp',
 	imageAlt: 'Recém-nascida com macacão de tricô rosé dormindo em cesto com folhagens e flores lilás',
 };
 
@@ -37,7 +38,7 @@ export const intro = {
 	eyebrow: 'Por que registrar',
 	title: 'Em poucas semanas, ele já não cabe mais no seu colo do mesmo jeito.',
 	paragraphs: [
-		'Os dedinhos que se fecham em volta do seu, o sono profundo, as caretinhas e o cheirinho de recém-nascido mudam a cada dia — e quase sem perceber.',
+		'Os dedinhos que se fecham em volta do seu, o sono profundo, as caretinhas e o cheirinho de recém-nascido mudam a cada dia, quase sem que a gente perceba.',
 		'Um ensaio newborn existe para guardar esse começo com toda a delicadeza que ele merece, enquanto ele ainda é tão pequeno.',
 	],
 	image: '/images/portfolio/newborn/15-newborn.webp',
@@ -125,10 +126,6 @@ export const gallery = {
 			alt: 'Pai beijando a filha recém-nascida aconchegada no colo',
 		},
 		{
-			image: '/images/portfolio/newborn/02-newborn.webp',
-			alt: 'Bebê de olhos abertos enrolado em manta azul sobre pelego',
-		},
-		{
 			image: '/images/portfolio/newborn/07-newborn.webp',
 			alt: 'Bebê com touca de orelhinhas azul segurando uma pequena câmera fotográfica',
 		},
@@ -153,10 +150,6 @@ export const gallery = {
 			alt: 'Recém-nascida enrolada em manta branca sobre almofada lilás em cesto com flores',
 		},
 		{
-			image: '/images/portfolio/newborn/03-newborn.webp',
-			alt: 'Bebê de olhos abertos olhando para a câmera, enrolado em manta azul',
-		},
-		{
 			image: '/images/portfolio/newborn/20-newborn.webp',
 			alt: 'Detalhe dos cabelinhos da recém-nascida com tiara de flor branca',
 		},
@@ -175,7 +168,7 @@ export const faq = {
 		{
 			question: 'Quando devo agendar?',
 			answer:
-				'O quanto antes, ainda durante a gestação. Reservamos uma data aproximada pela previsão do parto e ajustamos assim que o bebê nascer — é só me avisar.',
+				'O quanto antes, ainda durante a gestação. Reservamos uma data aproximada pela previsão do parto e ajustamos assim que o bebê nascer. É só me avisar.',
 		},
 		{
 			question: 'O ensaio é seguro para o bebê?',

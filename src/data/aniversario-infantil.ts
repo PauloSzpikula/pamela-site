@@ -32,8 +32,9 @@ export const hero = {
 	eyebrow: 'Aniversário Infantil',
 	title: 'A alegria da festa, registrada como ela realmente aconteceu.',
 	description:
-		'Fotografias espontâneas que guardam os sorrisos, as brincadeiras e a energia única do aniversário do seu filho — em São José dos Pinhais, Curitiba e Região Metropolitana.',
+		'Fotografias espontâneas que guardam os sorrisos, as brincadeiras e a energia única do aniversário do seu filho, em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	image: '/images/portfolio/infantil/infantil-capa.webp',
+	imageMobile: '/images/portfolio/infantil/infantil-capa-mobile.webp',
 	imageAlt: 'Criança sorrindo em festa de aniversário infantil',
 };
 
@@ -41,7 +42,7 @@ export const intro = {
 	eyebrow: 'Por que registrar',
 	title: 'Cada festa é única e passa rápido demais para confiar só na memória.',
 	paragraphs: [
-		'Entre o bolo, as brincadeiras e os amigos correndo pela festa, os melhores momentos acontecem sem aviso — e passam rápido demais.',
+		'Entre o bolo, as brincadeiras e os amigos correndo pela festa, os melhores momentos acontecem sem aviso e passam rápido demais.',
 		'Um ensaio de aniversário infantil existe para guardar essa energia genuína, sem poses forçadas, do jeitinho que a festa realmente foi.',
 	],
 	image: '/images/portfolio/infantil/pq-registrar.webp',
@@ -64,7 +65,7 @@ export const process = {
 		},
 		{
 			number: '03',
-			title: 'Ensaio',
+			title: 'Cobertura',
 			description: 'Acompanho a festa com discrição, registrando espontaneidade em vez de interromper a diversão.',
 		},
 		{
@@ -144,7 +145,7 @@ export const faq = {
 				'Em média de 2 a 3 horas, cobrindo os principais momentos da festa: chegada, brincadeiras, parabéns e bolo. Podemos ajustar conforme a duração do evento.',
 		},
 		{
-			question: 'Vocês atendem festas em buffet, salão ou em casa?',
+			question: 'Você atende festas em buffet, salão ou em casa?',
 			answer:
 				'Sim! Atendo festas em qualquer local em São José dos Pinhais, Curitiba e Região Metropolitana, seja em buffet, salão de festas, casa ou espaço ao ar livre.',
 		},
@@ -156,7 +157,7 @@ export const faq = {
 		{
 			question: 'É possível contratar um ensaio antes da festa, tipo um "smash the cake"?',
 			answer:
-				'Sim, esse é um ensaio à parte, geralmente feito em estúdio ou locação antes da data da festa. Podemos conversar sobre incluir essa opção junto com a cobertura do evento.',
+				'Sim! O smash the cake é um ensaio à parte, feito em estúdio antes da data da festa, e também pode encerrar o acompanhamento mensal do primeiro ano. Podemos conversar sobre incluir essa opção junto com a cobertura da festa.',
 		},
 		{
 			question: 'Em quanto tempo recebo as fotos?',
@@ -171,7 +172,7 @@ export const cta = {
 	title: 'Vamos transformar a alegria do aniversário em fotografias para guardar por toda a vida?',
 	description:
 		'Cada festa de aniversário é única e não se repete. Agende o ensaio do aniversário infantil e preserve hoje os momentos que vocês vão reviver para sempre.',
-	primaryLabel: 'Agendar Ensaio',
+	primaryLabel: 'Reservar minha data',
 	primaryHref: aniversarioInfantilWhatsappHref,
 	secondaryLabel: 'Ver outros ensaios',
 	secondaryHref: '/#portfolio',

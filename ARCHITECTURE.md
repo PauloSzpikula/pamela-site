@@ -50,11 +50,11 @@ Papel de cada pasta importante:
 | `src/config/` | Configuração global única: site, contato, redes sociais, helpers de SEO, builders de dados estruturados. Ver seção 3. |
 | `src/components/seo/` | `Seo.astro` (meta tags) e `JsonLd.astro` (dados estruturados). Usados por `Layout.astro` e pelas páginas. |
 | `src/components/layout/` | Header fixo, navegação desktop/mobile e logo. Compartilhados por **todas** as páginas via `Layout.astro`. |
-| `src/components/home/` | Componentes exclusivos da Home (Hero, About, Experience, Portfolio, Testimonials, CtaFinal, Footer). `Footer.astro` também é importado pelas LPs (é genérico o suficiente), o resto não. |
-| `src/components/landing/` | Componentes prop-driven que formam qualquer Landing Page: `LandingHero`, `EditorialIntro`, `ProcessSteps`, `EditorialGallery`, `FeaturedTestimonial`, `FaqAccordion`, `LandingCta`. Nenhum texto hardcoded — tudo vem de props. |
+| `src/components/home/` | Componentes exclusivos da Home (Hero, About, Experience, Portfolio, CtaFinal, Footer). `Footer.astro` também é importado pelas LPs (é genérico o suficiente), o resto não. |
+| `src/components/landing/` | Componentes prop-driven que formam qualquer Landing Page: `LandingHero`, `EditorialIntro`, `ProcessSteps`, `EditorialGalleryLightbox`, `FaqAccordion`, `LandingCta`. Nenhum texto hardcoded — tudo vem de props. |
 | `src/data/` | Um arquivo por domínio de conteúdo. `nav.ts` (menu), `portfolio.ts` (categorias de ensaio + status de publicação), `gestante.ts` (todo o conteúdo textual + SEO da LP Gestante — modelo para as próximas). |
 | `src/pages/` | Rotas: `index.astro` (Home), `gestante.astro` (LP), e os endpoints `robots.txt.ts`, `sitemap.xml.ts`, `manifest.webmanifest.ts`. |
-| `public/` | Imagens (`images/portfolio/<slug>/`, `images/hero/`, `images/logo/`, `images/depoimentos/`), fontes self-hosted, favicon. |
+| `public/` | Imagens (`images/portfolio/<slug>/`, `images/hero/`, `images/logo/`), fontes self-hosted, favicon. Toda foto de portfólio tem uma versão `-960.webp` ao lado (usada em `srcset` via `src/utils/responsiveImage.ts`) e cada LP tem um `<slug>-hero-mobile.webp` vertical (1080×1920) para o Hero no celular. |
 
 ## 3. Configurações globais
 

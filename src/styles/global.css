@@ -36,6 +36,8 @@
 	--color-text-muted: #6b6259;
 	--color-accent: #7c8560;
 	--color-accent-dark: #5c6347;
+	/* Hover do botão primário (o botão usa accent-dark para atingir contraste AA com o texto claro). */
+	--color-accent-darker: #474d36;
 	--color-gold: #b9975b;
 	--color-surface: #ffffff;
 	/* Não listado no brief — derivado para bordas/divisores discretos (não confundir com --color-text,
@@ -139,12 +141,13 @@
 	}
 
 	.btn-primary {
-		background-color: var(--color-accent);
+		/* accent-dark (e não accent) para o texto claro passar de 4,5:1 de contraste (WCAG AA). */
+		background-color: var(--color-accent-dark);
 		color: var(--color-bg);
 	}
 
 	.btn-primary:hover {
-		background-color: var(--color-accent-dark);
+		background-color: var(--color-accent-darker);
 	}
 
 	.btn-secondary {

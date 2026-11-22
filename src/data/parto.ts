@@ -31,6 +31,7 @@ export const hero = {
 	description:
 		'Registro discreto e sensível do nascimento do seu bebê, do trabalho de parto às primeiras horas de vida, em maternidades de São José dos Pinhais, Curitiba e Região Metropolitana.',
 	image: '/images/portfolio/parto/parto-hero.webp',
+	imageMobile: '/images/portfolio/parto/parto-hero-mobile.webp',
 	imageAlt: 'Bebê recém-nascido erguido pela equipe médica no momento do nascimento, em preto e branco',
 };
 

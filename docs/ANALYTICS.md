@@ -62,6 +62,7 @@ Cliques: whatsapp_click etc.     ─┘                                 Meta Pix
 | `cta_final` | Bloco final da Home |
 | `landing_hero` | Botão do topo de cada LP |
 | `landing_cta` | Bloco final de cada LP |
+| `floating` | Botão redondo fixo no canto da tela (mobile/tablet, aparece após rolar o topo) |
 | `footer` | Links do rodapé |
 | `outro` | Link sem `data-cta` (adicione o atributo ao criar um botão novo) |
 

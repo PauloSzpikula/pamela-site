@@ -34,6 +34,7 @@ export const hero = {
 		'Cobertura fotográfica de festas, celebrações, eventos corporativos e esportivos, com olhar atento para o que acontece de verdade, em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	// Recorte de 10: letreiro deslocado para a direita e escurecido, para o texto branco.
 	image: '/images/portfolio/eventos/eventos-hero.webp',
+	imageMobile: '/images/portfolio/eventos/eventos-hero-mobile.webp',
 	imageAlt: 'Palco de festa de 15 anos com letreiro iluminado e pista de dança de LED',
 };
 

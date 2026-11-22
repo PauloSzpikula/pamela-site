@@ -35,6 +35,7 @@ export const hero = {
 		'Ensaios que acompanham o primeiro ano do seu bebê, do primeiro sorriso ao primeiro bolo, em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	// Recorte de 19: bebê deslocado para a direita e leve escurecimento, para o texto branco.
 	image: '/images/portfolio/acompanhamento/acompanhamento-hero.webp',
+	imageMobile: '/images/portfolio/acompanhamento/acompanhamento-hero-mobile.webp',
 	imageAlt: 'Bebê sorrindo de macacão xadrez vermelho sentado em cenário de feira com melancias',
 };
 

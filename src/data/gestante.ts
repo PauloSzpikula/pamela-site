@@ -24,9 +24,10 @@ export const hero = {
 	eyebrow: 'Ensaio Gestante',
 	title: 'Um retrato eterno da espera mais bonita da sua vida.',
 	description:
-		'Ensaios sensíveis que celebram a gestação, o vínculo e a beleza desse momento único — em São José dos Pinhais, Curitiba e Região Metropolitana.',
+		'Ensaios sensíveis que celebram a gestação, o vínculo e a beleza desse momento único, em São José dos Pinhais, Curitiba e Região Metropolitana.',
 	image: '/images/portfolio/gestante/gestante-capa.webp',
-	imageAlt: 'Gestante em ensaio fotográfico sensível',
+	imageMobile: '/images/portfolio/gestante/gestante-hero-mobile.webp',
+	imageAlt: 'Gestante de vestido verde olhando para o alto em ensaio de estúdio',
 };
 
 export const intro = {
@@ -34,7 +35,7 @@ export const intro = {
 	title: 'Essa fase não volta, mas pode ser lembrada para sempre.',
 	paragraphs: [
 		'A gestação é feita de pequenos instantes que passam rápido demais: o primeiro chute, as mãos sobre a barriga, a expectativa no olhar.',
-		'Um ensaio gestante existe para guardar tudo isso — não como uma pose, mas como memória viva de um tempo que só existe uma vez.',
+		'Um ensaio gestante existe para guardar tudo isso: não como uma pose, mas como memória viva de um tempo que só existe uma vez.',
 	],
 	image: '/images/portfolio/gestante/pq-registrar.webp',
 	imageAlt: 'Casal sorridente em ensaio gestante, ele com as mãos na barriga dela',
@@ -70,10 +71,15 @@ export const process = {
 export const gallery = {
 	eyebrow: 'Galeria',
 	title: 'Um ensaio, muitos instantes.',
+	/**
+	 * Ordem única para grid + Lightbox: as 4 primeiras aparecem no grid 2×2
+	 * (todas horizontais, já que o grid recorta em 3:2). As verticais (04, 08, 09)
+	 * ficam para o Lightbox.
+	 */
 	images: [
 		{
 			image: '/images/portfolio/gestante/01-gestante.webp',
-			alt: 'Gestante posando com chapéu preto em ensaio de estúdio',
+			alt: 'Gestante de chapéu preto e blusa de renda posando em estúdio',
 		},
 		{
 			image: '/images/portfolio/gestante/02-gestante.webp',
@@ -81,48 +87,39 @@ export const gallery = {
 		},
 		{
 			image: '/images/portfolio/gestante/03-gestante.webp',
-			alt: 'Detalhe de beijo na barriga durante ensaio gestante',
-		},
-		{
-			image: '/images/portfolio/gestante/04-gestante.webp',
-			alt: 'Gestante em vestido longo azul-marinho em ensaio de estúdio',
-		},
-		{
-			image: '/images/portfolio/gestante/05-gestante.webp',
-			alt: 'Casal abraçado durante ensaio gestante, ela em vestido verde longo',
+			alt: 'Pai beijando a barriga da gestante de vestido preto',
 		},
 		{
 			image: '/images/portfolio/gestante/06-gestante.webp',
-			alt: 'Filho mais velho encostando o rosto na barriga da mãe grávida',
+			alt: 'Filho abraçando a barriga da mãe grávida de vestido azul',
+		},
+		{
+			image: '/images/portfolio/gestante/05-gestante.webp',
+			alt: 'Casal abraçado e sorrindo, ele com as mãos sobre a barriga dela',
 		},
 		{
 			image: '/images/portfolio/gestante/07-gestante.webp',
-			alt: 'Casal em momento íntimo durante ensaio gestante',
-		},
-		{
-			image: '/images/portfolio/gestante/08-gestante.webp',
-			alt: 'Casal sorridente em ensaio gestante, ela acariciando o rosto dele',
-		},
-		{
-			image: '/images/portfolio/gestante/09-gestante.webp',
-			alt: 'Casal se abraçando durante ensaio gestante',
+			alt: 'Casal encostando as testas em ensaio gestante, ela com as mãos na barriga',
 		},
 		{
 			image: '/images/portfolio/gestante/10-gestante.webp',
-			alt: 'Casal em ensaio gestante, ela com chapéu de palha e vestido de renda branco',
+			alt: 'Casal em ensaio gestante, ela com chapéu de palha e body de renda branco',
+		},
+		{
+			image: '/images/portfolio/gestante/04-gestante.webp',
+			alt: 'Gestante de vestido longo azul-marinho com cauda em ensaio de estúdio',
+		},
+		{
+			image: '/images/portfolio/gestante/08-gestante.webp',
+			alt: 'Casal abraçado em ensaio gestante, ela de vestido verde longo',
+		},
+		{
+			image: '/images/portfolio/gestante/09-gestante.webp',
+			alt: 'Gestante de vestido verde com cauda olhando para o alto',
 		},
 	],
 };
 
-export const testimonial = {
-	eyebrow: 'Depoimento',
-	quote:
-		'Foi muito mais do que um ensaio. Vivemos uma experiência leve e emocionante, e o resultado ficou acima de qualquer expectativa — hoje é um dos meus registros mais queridos da gravidez.',
-	author: 'Ana',
-	context: 'Ensaio Gestante',
-	image: '/images/depoimentos/ana.jpg',
-	imageAlt: 'Ana durante ensaio gestante',
-};
 
 export const faq = {
 	eyebrow: 'Perguntas Frequentes',
@@ -131,7 +128,7 @@ export const faq = {
 		{
 			question: 'Com quantas semanas de gestação devo fazer o ensaio?',
 			answer:
-				'O ideal é entre a 30ª e a 34ª semana, quando a barriga já está bem definida e você ainda se sente confortável para o ensaio. Mas cada gestação é única — podemos conversar sobre o melhor momento para você.',
+				'O ideal é entre a 30ª e a 34ª semana, quando a barriga já está bem definida e você ainda se sente confortável para o ensaio. Mas cada gestação é única, e podemos conversar sobre o melhor momento para você.',
 		},
 		{
 			question: 'Posso levar meu parceiro e outros filhos?',
@@ -151,7 +148,7 @@ export const faq = {
 		{
 			question: 'Preciso levar roupas específicas?',
 			answer:
-				'Não é obrigatório — tenho um acervo de vestidos pensados para ensaios gestantes. Mas se preferir usar peças próprias, te ajudo a escolher as melhores opções antes do dia.',
+				'Não é obrigatório: tenho um acervo de vestidos pensados para ensaios gestantes. Mas se preferir usar peças próprias, te ajudo a escolher as melhores opções antes do dia.',
 		},
 		{
 			question: 'Em quanto tempo recebo as fotos?',
@@ -162,7 +159,7 @@ export const faq = {
 };
 
 export const cta = {
-	eyebrow: 'Pronto para eternizar esse momento?',
+	eyebrow: 'Pronta para eternizar esse momento?',
 	title: 'Vamos transformar a espera em fotografias para guardar por toda a vida?',
 	description:
 		'Cada semana dessa fase passa mais rápido do que imaginamos. Agende seu ensaio gestante e preserve hoje a memória que você vai reviver para sempre.',

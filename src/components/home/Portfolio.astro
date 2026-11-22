@@ -1,4 +1,5 @@
 ---
+import { srcsetFor } from '../../utils/responsiveImage';
 import fs from 'node:fs';
 import path from 'node:path';
 import { portfolioCategories } from '../../data/portfolio';
@@ -12,7 +13,7 @@ const categories = portfolioCategories.map((category) => ({
 <section id="portfolio" class="scroll-mt-20 border-t border-border">
 	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
 		<div class="flex flex-col gap-sm">
-			<small class="font-semibold uppercase tracking-[0.2em] text-accent">Portfólio</small>
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent-dark">Portfólio</small>
 			<h2>Um ensaio para cada momento da sua família</h2>
 		</div>
 
@@ -26,6 +27,8 @@ const categories = portfolioCategories.map((category) => ({
 						{category.hasImage && (
 							<img
 								src={category.image}
+								srcset={srcsetFor(category.image)}
+								sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 								alt={category.label}
 								loading="lazy"
 								class="aspect-[4/5] w-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
@@ -33,13 +36,13 @@ const categories = portfolioCategories.map((category) => ({
 						)}
 						<span
 							aria-hidden="true"
-							class="pointer-events-none absolute inset-0 flex items-end bg-[linear-gradient(to_top,rgba(42,36,32,0.55),transparent_50%)] p-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+							class="pointer-events-none absolute inset-0 flex items-end bg-[linear-gradient(to_top,rgba(42,36,32,0.55),transparent_50%)] p-lg transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100"
 						>
 							<span class="font-semibold uppercase tracking-wide text-bg">{category.label}</span>
 						</span>
 						<span
 							aria-hidden="true"
-							class="ver-mais pointer-events-none absolute bottom-[16px] right-[16px] text-xs font-semibold uppercase tracking-wide text-bg opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:duration-200"
+							class="ver-mais pointer-events-none absolute bottom-[16px] right-[16px] text-xs font-semibold uppercase tracking-wide text-bg transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:duration-200"
 						>
 							Ver mais
 						</span>

@@ -1,4 +1,5 @@
 ---
+import { srcsetFor } from '../../utils/responsiveImage';
 interface GalleryImage {
 	image?: string;
 	alt: string;
@@ -37,12 +38,12 @@ const photosJson = JSON.stringify(photos.map(({ image, alt }) => ({ image, alt }
 <section id="galeria" class="scroll-mt-20 border-t border-border">
 	<div data-reveal class="site-container flex flex-col gap-2xl py-12 md:py-24">
 		<div class="flex flex-col gap-sm">
-			<small class="font-semibold uppercase tracking-[0.2em] text-accent">{eyebrow}</small>
+			<small class="font-semibold uppercase tracking-[0.2em] text-accent-dark">{eyebrow}</small>
 			<h2 class="max-w-[42rem]">{title}</h2>
 			{description && <p class="max-w-[36rem] text-text-muted">{description}</p>}
 		</div>
 
-		<div class="grid w-full grid-cols-2 gap-md sm:gap-lg md:gap-xl">
+		<div class="grid w-full grid-cols-1 gap-md sm:grid-cols-2 sm:gap-lg md:gap-xl">
 			{
 				previewImages.map((item) => {
 					if (!item.image) {
@@ -77,6 +78,8 @@ const photosJson = JSON.stringify(photos.map(({ image, alt }) => ({ image, alt }
 						>
 							<img
 								src={item.image}
+								srcset={srcsetFor(item.image)}
+								sizes="(min-width: 640px) 50vw, 100vw"
 								alt={item.alt}
 								loading="lazy"
 								decoding="async"

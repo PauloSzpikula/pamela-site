@@ -1,0 +1,41 @@
+---
+/**
+ * Botão de WhatsApp fixo no canto inferior direito, só no mobile/tablet
+ * (no desktop o Header já tem o botão sempre visível). Aparece depois que
+ * a pessoa rola além do Hero, para não competir com o CTA principal.
+ * Cliques entram no GTM como whatsapp_click com cta_location "floating".
+ */
+interface Props {
+	href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a
+	id="floating-whatsapp"
+	href={href}
+	data-cta="floating"
+	target="_blank"
+	rel="noopener noreferrer"
+	aria-label="Conversar pelo WhatsApp"
+	class="pointer-events-none fixed bottom-sm right-sm z-40 flex h-14 w-14 translate-y-3 items-center justify-center rounded-full bg-accent-dark text-bg opacity-0 shadow-[0_10px_30px_-8px_rgba(42,36,32,0.55)] transition-all duration-300 hover:bg-text lg:hidden [&.is-visible]:pointer-events-auto [&.is-visible]:translate-y-0 [&.is-visible]:opacity-100"
+>
+	<svg viewBox="0 0 32 32" fill="currentColor" class="h-7 w-7" aria-hidden="true">
+		<path
+			d="M16.004 3C9.377 3 4 8.377 4 15.004c0 2.648.87 5.09 2.342 7.07L4 29l7.106-2.32a11.94 11.94 0 0 0 4.898 1.04h.004c6.627 0 12.004-5.377 12.004-12.004C28.008 8.377 22.631 3 16.004 3Zm0 21.86a9.83 9.83 0 0 1-5.02-1.38l-.36-.214-4.216 1.377 1.396-4.106-.234-.375A9.840 9.840 0 0 1 6.14 15c0-5.44 4.424-9.860 9.864-9.860 5.44 0 9.860 4.420 9.860 9.860 0 5.440-4.420 9.860-9.860 9.860Zm5.42-7.386c-.297-.148-1.758-.867-2.03-.966-.273-.099-.472-.148-.67.148-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.148-1.254-.462-2.39-1.474-.883-.788-1.48-1.760-1.653-2.058-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.148-.173.198-.297.297-.495.099-.198.05-.372-.025-.52-.075-.148-.67-1.613-.918-2.210-.242-.580-.487-.5-.67-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.075-.792.372-.273.297-1.04 1.016-1.04 2.478 0 1.462 1.065 2.874 1.213 3.072.148.198 2.096 3.2 5.08 4.487.71.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.005-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347Z"
+		></path>
+	</svg>
+</a>
+
+<script>
+	const button = document.getElementById('floating-whatsapp');
+
+	if (button) {
+		const update = () => {
+			button.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+		};
+		update();
+		window.addEventListener('scroll', update, { passive: true });
+	}
+</script>

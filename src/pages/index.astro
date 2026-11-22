@@ -14,7 +14,11 @@ const schema = [organizationSchema(), localBusinessSchema(), photographerSchema(
 ---
 
 <Layout
-	preloadImage={{ desktop: '/images/hero/hero-home.webp', mobile: '/images/hero/hero-mobile.webp' }}
+	preloadImage={{
+		desktop: '/images/hero/hero-home.webp',
+		mobile: '/images/hero/hero-mobile.webp',
+		desktopSrcset: '/images/hero/hero-home.webp 1920w, /images/hero/hero-home-2560.webp 2560w',
+	}}
 >
 	<Hero />
 	<About />
