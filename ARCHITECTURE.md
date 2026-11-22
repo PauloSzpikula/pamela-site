@@ -6,7 +6,7 @@ Documentação técnica do código-fonte. Para diretrizes de marca/visual, ver `
 
 ### Objetivo
 
-Site institucional da **Pamela Teice Fotografia**: uma Home (aprovada, estável) e uma Landing Page dedicada para cada tipo de ensaio (Gestante, Newborn, Aniversário Infantil, Família, Escolar, Casamento), todas seguindo o mesmo padrão de componentes, dados e SEO.
+Site institucional da **Pamela Teice Fotografia**: uma Home (aprovada, estável) e uma Landing Page dedicada para cada tipo de ensaio (Gestante, Parto, Newborn, Aniversário Infantil, Escolar, Casamento), todas seguindo o mesmo padrão de componentes, dados e SEO.
 
 ### Stack
 
@@ -77,7 +77,7 @@ Tudo em `src/config/`. **Nunca duplicar estes valores em um componente ou págin
 
 ## 4. Como criar uma nova Landing Page
 
-Passo a passo usando **Newborn** como exemplo — repita para Família, Escolar, Casamento (Gestante e Aniversário Infantil já existem e servem de referência).
+Passo a passo usando **Newborn** como exemplo — repita para Escolar, Casamento (Gestante e Aniversário Infantil já existem e servem de referência).
 
 1. **Criar `src/data/newborn.ts`** com a mesma forma de `src/data/gestante.ts`: exports `seo`, `hero`, `intro`, `process`, `gallery`, `faq`, `cta`. Copie a estrutura de `gestante.ts` e troque o conteúdo — não invente campos novos sem necessidade. (A seção de avaliações não entra aqui: vem sempre de `<ReviewSection />`, sem props, dados reais compartilhados entre Home e todas as LPs — ver `src/components/reviews/ReviewSection.astro`.)
 2. **Criar `src/pages/newborn.astro`**, copiando `src/pages/gestante.astro` e trocando:
@@ -130,7 +130,7 @@ Próximas etapas previstas para o projeto:
 
 - ~~**Sistema de avaliações Google**~~ — feito: `<ReviewSection />`, compartilhado por Home e todas as LPs.
 - ~~**LP Newborn**~~ — feito. (Gestante, Aniversário Infantil e Newborn concluídas.)
-- **LP Família** — idem.
+- ~~**LP Parto**~~ — feito: substituiu a categoria Família no portfólio.
 - **LP Escolar** — idem.
 - **LP Casamento** — idem.
 - **Performance** — otimização de imagens (formatos/tamanhos responsivos), auditoria Lighthouse.
